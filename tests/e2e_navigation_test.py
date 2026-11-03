@@ -7,7 +7,7 @@ import threading
 import urllib.parse
 import urllib.request
 
-PORT = 8923
+PORT = 8924
 ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 
 class CustomHandler(http.server.SimpleHTTPRequestHandler):
@@ -15,13 +15,13 @@ class CustomHandler(http.server.SimpleHTTPRequestHandler):
         super().__init__(*args, directory=ROOT_DIR, **kwargs)
 
     def log_message(self, format, *args):
-        pass # Silêncio para manter o teste limpo
+        pass
 
 def run_e2e_tests():
     server = socketserver.TCPServer(("127.0.0.1", PORT), CustomHandler)
     server_thread = threading.Thread(target=server.serve_forever, daemon=True)
     server_thread.start()
-    print(f"[INFO] Servidor HTTP de teste rodando em http://127.0.0.1:{PORT} (root={ROOT_DIR})")
+    print(f"[INFO] Servidor HTTP de teste rodando em http://127.0.0.1:{PORT}")
 
     base_url = f"http://127.0.0.1:{PORT}"
     errors = []
@@ -38,78 +38,88 @@ def run_e2e_tests():
             with urllib.request.urlopen(req, timeout=5) as resp:
                 if resp.status != 200:
                     errors.append(f"HTTP {resp.status} em {full_url} (referrer: {referrer})")
-                else:
-                    pass
         except Exception as e:
             errors.append(f"Erro ao acessar {full_url} (referrer: {referrer}): {e}")
 
-    # 1. Checa a raiz index.html
+    # 1. Carrega Master Hub (index.html na raiz)
     try:
         with urllib.request.urlopen(f"{base_url}/index.html", timeout=5) as resp:
-            content = resp.read().decode("utf-8")
-            print(f"[OK] index.html carregado com sucesso ({len(content)} bytes)")
+            master_html = resp.read().decode("utf-8")
+            print(f"[OK] Master Hub carregado com sucesso ({len(master_html)} bytes)")
     except Exception as e:
-        print(f"[FAIL] Não foi possível carregar index.html: {e}")
+        print(f"[FAIL] Não foi possível carregar Master Hub: {e}")
         server.shutdown()
         sys.exit(1)
 
-    # 2. Extrai e testa todos os links de index.html
-    dashboard_links = re.findall(r'href=["\'](\./dashboards/dashboard_[^"\']+\.html)["\']', content)
-    pdf_links = re.findall(r'href=["\'](\./assets/pdfs/[^"\']+\.pdf)["\']', content)
+    # 2. Carrega Portal PIBEP 2026 (pibep-2026/index.html)
+    pibep_url = f"{base_url}/pibep-2026/index.html"
+    try:
+        with urllib.request.urlopen(pibep_url, timeout=5) as resp:
+            pibep_html = resp.read().decode("utf-8")
+            print(f"[OK] PIBEP Hub carregado com sucesso ({len(pibep_html)} bytes)")
+    except Exception as e:
+        print(f"[FAIL] Não foi possível carregar PIBEP Hub: {e}")
+        server.shutdown()
+        sys.exit(1)
 
-    print(f"[INFO] Encontrados no Hub: {len(dashboard_links)} links de dashboards e {len(pdf_links)} links de PDFs.")
+    # 3. Extrai e testa todos os links de pibep-2026
+    dash_links = re.findall(r'href=["\'](\./dashboards/dashboard_[^"\']+\.html)["\']', pibep_html)
+    pdf_links = re.findall(r'href=["\'](\./assets/pdfs/[^"\']+\.pdf)["\']', pibep_html)
 
-    if len(dashboard_links) != 8:
-        errors.append(f"Esperado 8 links de dashboards no index.html, encontrados {len(dashboard_links)}")
+    print(f"[INFO] No PIBEP Hub: {len(dash_links)} dashboards e {len(pdf_links)} PDFs.")
+    if len(dash_links) != 8:
+        errors.append(f"Esperado 8 links de dashboards, encontrados {len(dash_links)}")
     if len(pdf_links) != 8:
-        errors.append(f"Esperado 8 links de PDFs no index.html, encontrados {len(pdf_links)}")
+        errors.append(f"Esperado 8 links de PDFs, encontrados {len(pdf_links)}")
 
-    for link in dashboard_links:
-        check_url(link, "index.html")
+    for link in dash_links:
+        full_d = urllib.parse.urljoin(f"{base_url}/pibep-2026/", link)
+        check_url(full_d, "pibep-2026/index.html")
+
     for link in pdf_links:
-        check_url(link, "index.html")
+        full_p = urllib.parse.urljoin(f"{base_url}/pibep-2026/", link)
+        check_url(full_p, "pibep-2026/index.html")
 
-    # 3. Navega em cada dashboard e testa seus links internos
-    for d_link in dashboard_links:
-        d_url = urllib.parse.urljoin(base_url + "/", d_link.lstrip("/"))
+    # 4. Navega em cada dashboard e testa links internos
+    for d_link in dash_links:
+        full_d = urllib.parse.urljoin(f"{base_url}/pibep-2026/", d_link)
         try:
-            with urllib.request.urlopen(d_url, timeout=5) as resp:
+            with urllib.request.urlopen(full_d, timeout=5) as resp:
                 d_html = resp.read().decode("utf-8")
         except Exception as e:
-            errors.append(f"Falha ao carregar dashboard {d_url}: {e}")
+            errors.append(f"Falha ao carregar dashboard {full_d}: {e}")
             continue
 
-        # Testa link para o hub
-        hub_link = re.findall(r'href=["\'](\.\./index\.html)["\']', d_html)
-        if not hub_link:
-            errors.append(f"Dashboard {d_link} não contém link de retorno '../index.html'")
+        # Link de retorno ao hub do evento
+        if "../index.html" not in d_html:
+            errors.append(f"{d_link} sem link '../index.html'")
         else:
-            check_url(urllib.parse.urljoin(d_url, hub_link[0]), d_link)
+            check_url(urllib.parse.urljoin(full_d, "../index.html"), d_link)
 
-        # Testa link do PDF local
-        local_pdf = re.findall(r'href=["\'](\.\./assets/pdfs/[^"\']+\.pdf)["\']', d_html)
-        if not local_pdf:
-            errors.append(f"Dashboard {d_link} não contém link de PDF local '../assets/pdfs/...'")
+        # Link do PDF local
+        local_pdfs = re.findall(r'href=["\'](\.\./assets/pdfs/[^"\']+\.pdf)["\']', d_html)
+        if not local_pdfs:
+            errors.append(f"{d_link} sem link de PDF local")
         else:
-            for p in local_pdf:
-                check_url(urllib.parse.urljoin(d_url, p), d_link)
+            for p in local_pdfs:
+                check_url(urllib.parse.urljoin(full_d, p), d_link)
 
-        # Testa as opções do seletor de equipes
+        # Seletor de equipes
         selector_opts = re.findall(r'<option\s+value=["\'](dashboard_[^"\']+\.html)["\']', d_html)
         if len(selector_opts) != 8:
-            errors.append(f"Dashboard {d_link} contém {len(selector_opts)} opções no seletor (esperado 8)")
+            errors.append(f"{d_link} seletor com {len(selector_opts)} opções (esperado 8)")
         for opt in selector_opts:
-            check_url(urllib.parse.urljoin(d_url, opt), d_link)
+            check_url(urllib.parse.urljoin(full_d, opt), d_link)
 
     server.shutdown()
 
     if errors:
-        print(f"\n[FAIL] Foram encontrados {len(errors)} erros na verificação E2E:")
+        print(f"\n[FAIL] Erros na verificação E2E:")
         for err in errors:
             print(f"  - {err}")
         sys.exit(1)
 
-    print(f"\n[PASS] Bateria E2E concluída com 100% de sucesso! ({len(checked_urls)} URLs verificadas, zero links 404)")
+    print(f"\n[PASS] Bateria E2E multi-demanda concluída com 100% de sucesso! ({len(checked_urls)} URLs verificadas, zero 404s)")
 
 if __name__ == "__main__":
     run_e2e_tests()

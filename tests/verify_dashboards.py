@@ -13,7 +13,7 @@ REQUIRED_DASHBOARDS = [
     "dashboard_08_recoup.html"
 ]
 
-DASHBOARDS_DIR = os.path.join(os.path.dirname(__file__), "..", "dashboards")
+DASHBOARDS_DIR = os.path.join(os.path.dirname(__file__), "..", "pibep-2026", "dashboards")
 
 def test_dashboards():
     if not os.path.isdir(DASHBOARDS_DIR):
@@ -58,7 +58,7 @@ def test_dashboards():
             print(f"  - {e}")
         sys.exit(1)
 
-    print(f"[PASS] Todos os {len(REQUIRED_DASHBOARDS)} dashboards validados com sucesso!")
+    print(f"[PASS] Todos os {len(REQUIRED_DASHBOARDS)} dashboards validados com sucesso em {DASHBOARDS_DIR}!")
 
 if __name__ == "__main__":
     test_dashboards()

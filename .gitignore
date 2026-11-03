@@ -9,3 +9,5 @@ __pycache__/
 *.pyc
 .env
 raw_drive/
+pibep-2026/raw_drive/
+**/raw_drive/

@@ -12,7 +12,7 @@ REQUIRED_PDFS = [
     "RECOUP.pdf"
 ]
 
-TARGET_DIR = os.path.join(os.path.dirname(__file__), "..", "assets", "pdfs")
+TARGET_DIR = os.path.join(os.path.dirname(__file__), "..", "pibep-2026", "assets", "pdfs")
 
 def test_assets():
     if not os.path.isdir(TARGET_DIR):
@@ -38,9 +38,6 @@ def test_assets():
         sys.exit(1)
 
     print(f"[PASS] Todos os {len(REQUIRED_PDFS)} PDFs estão presentes e válidos em {TARGET_DIR}!")
-    for pdf in REQUIRED_PDFS:
-        size_kb = os.path.getsize(os.path.join(TARGET_DIR, pdf)) / 1024
-        print(f"  - {pdf}: {size_kb:.1f} KB")
 
 if __name__ == "__main__":
     test_assets()

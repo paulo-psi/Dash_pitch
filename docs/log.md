@@ -1,14 +1,13 @@
 # Diário de Bordo & Memória — Dash_pitch
 
 ## 📌 Estado Atual do Projeto (Handoff Rápido)
-- **Data/Hora:** 2026-11-03 16:10
-- **Status:** 🚀 **PROJETO PUBLICADO NO AR E AUDITADO!**
-  - **URL Pública GitHub Pages:** https://paulo-psi.github.io/Dash_pitch/
-  - **Repositório GitHub Pro:** https://github.com/paulo-psi/Dash_pitch
-  - **Auditoria Profunda via Playwright:** Executada com `deep_audit_runner.py` em 3 viewports (1440, 1366, 375).
-  - **Correções Aplicadas:** Ajuste responsivo de cabeçalho no mobile, eliminação de overflow horizontal (largura agora em 375px exatos) e alvos táteis ergonômicos.
-  - **Testes Remotos em Produção:** Hub, dashboards e PDFs testados via HTTP e respondendo 200 OK.
-- **Próximos Passos:** Enviar os links de devolutiva para os fundadores das startups e jurados do PIBEP.
+- **Data/Hora:** 2026-11-03 16:21
+- **Status:** 🏛️ **ARQUITETURA MULTI-DEMANDAS IMPLEMENTADA & PUBLICADA!**
+  - **Master Hub na Raiz (`index.html`):** Catálogo de programas e edições com link direto para cada demanda.
+  - **Demanda 1 Isolada (`pibep-2026/`):** Contém seu próprio `index.html`, `dashboards/` e `assets/pdfs/` com 100% de integridade relativa.
+  - **Prontidão Futura:** O repositório está apto a receber novas demandas (ex.: `hackathon-2027/`, `pibep-2027/`) sem colisão de rotas ou quebra de links antigos.
+  - **Bateria de Testes:** 4 testes atualizados e passando 100% (17 URLs verificadas, zero links 404).
+- **Próximos Passos:** Repositório pronto para novas demandas futuras ou compartilhamento imediato.
 
 ## Histórico de Sessões
 - **2026-11-03:**
@@ -26,4 +25,8 @@
   - **Publicação no GitHub Pro:**
     - Repositório criado via GitHub CLI (`gh repo create paulo-psi/Dash_pitch --public`).
     - GitHub Pages habilitado via API e compilado com sucesso (`status: built`).
-    - Validação remota de integridade em produção confirmando HTTP 200 na home, dashboards e PDFs.
+  - **Reestruturação Multi-Demandas:**
+    - Isolamento de todo o evento PIBEP 2026 dentro da subpasta `pibep-2026/`.
+    - Criação do Master Hub (`index.html`) para gerenciar múltiplas demandas e eventos futuros.
+    - Adicionado botão de navegação bidirecional no PIBEP Hub para o Master Hub.
+    - Testes E2E multi-demanda validados e push sincronizado com o GitHub Pages.
