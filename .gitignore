@@ -1,0 +1,10 @@
+# Proteções Padrão de Governança
+_backup/
+_skills_repo/
+_skills_hub/
+node_modules/
+.venv/
+venv/
+__pycache__/
+*.pyc
+.env
