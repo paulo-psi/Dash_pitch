@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Executivo & Devolutiva da Banca — Norman | PIBEP PUCPR 2026</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    @media print {
+      .no-print { display: none !important; }
+      .tab-content { display: block !important; }
+      body { background: white; color: black; }
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen">
+
+  <!-- Top Header / Navigation Bar -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+      <div class="flex items-center space-x-3">
+        <!-- Global Hub & Team Switcher Bar -->
+        <div class="flex items-center space-x-2 mr-3 no-print">
+          <a href="../index.html" class="inline-flex items-center px-2.5 py-1 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg border border-slate-200 transition-colors">
+            <svg class="w-3.5 h-3.5 mr-1 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+            Hub
+          </a>
+          <select id="teamSelector" onchange="if(this.value) window.location.href=this.value" class="text-xs bg-slate-50 hover:bg-slate-100 border border-slate-300 rounded-lg px-2.5 py-1 font-semibold text-slate-800 cursor-pointer focus:ring-2 focus:ring-blue-500">
+              <option value="dashboard_01_anchor.html">01. Anchor</option>
+              <option value="dashboard_02_integremente.html">02. IntegreMente</option>
+              <option value="dashboard_03_norman.html" selected>03. Norman</option>
+              <option value="dashboard_04_nock.html">04. Nock</option>
+              <option value="dashboard_05_manka.html">05. Manka</option>
+              <option value="dashboard_06_kaden.html">06. Kaden</option>
+              <option value="dashboard_07_plantoniq.html">07. PlantonIQ</option>
+              <option value="dashboard_08_recoup.html">08. Recoup IA</option>
+          </select>
+        </div>
+
+          <span class="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-emerald-600 text-white font-bold text-lg shadow-sm">
+            03
+          </span>
+          <div>
+            <div class="flex items-center space-x-2">
+              <h1 class="text-xl font-bold text-slate-900">Norman</h1>
+              <span class="px-2.5 py-0.5 text-xs font-semibold rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200">
+                Produtividade / AI Agent B2C
+              </span>
+              <span class="px-2.5 py-0.5 text-xs font-medium rounded-full bg-blue-50 text-blue-700 border border-blue-200">
+                Demoday PIBEP 2026
+              </span>
+            </div>
+            <p class="text-xs text-slate-500">Relatório Oficial de Avaliação & Devolutiva da Banca · 28/10/2026</p>
+          </div>
+        </div>
+
+        <!-- Quick Actions & Links -->
+        <div class="flex items-center space-x-2 no-print">
+          <a href="../assets/pdfs/Norman.pdf" target="_blank" rel="noopener noreferrer" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-3 py-1.5 text-xs font-medium rounded-lg text-slate-700 bg-slate-100 hover:bg-slate-200 transition-colors border border-slate-200">
+            <svg class="w-3.5 h-3.5 mr-1.5 text-rose-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-9.5 8.5h3v1.5h-3v-1.5zm0-3h3V10h-3V8.5zm5 6h-8V7h8v7.5z"/></svg>
+            One-Pager PDF
+          </a>
+          <a href="https://drive.google.com/file/d/1iWYQ_C8i_1igHPQ1S27FNbRXwH_h4UGM/view?usp=drivesdk" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-3 py-1.5 text-xs font-medium rounded-lg text-blue-700 bg-blue-50 hover:bg-blue-100 transition-colors border border-blue-200">
+            <svg class="w-3.5 h-3.5 mr-1.5 text-blue-600" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            Vídeo (00:35:30)
+          </a>
+          <button id="btnPrint" class="inline-flex items-center px-3 py-1.5 text-xs font-medium rounded-lg text-slate-700 bg-white hover:bg-slate-50 border border-slate-300 transition-colors">
+            <svg class="w-3.5 h-3.5 mr-1.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+            Exportar / Imprimir
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Startup Hero Header -->
+  <div class="bg-gradient-to-r from-slate-900 via-emerald-950 to-teal-950 text-white py-6 border-b border-emerald-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div>
+          <span class="inline-block text-xs uppercase tracking-wider font-semibold text-emerald-400 mb-1">
+            "Seu assistente executivo dentro do WhatsApp"
+          </span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight">
+            Norman — Assistente Executivo Digital Autônomo
+          </h2>
+          <p class="mt-1 text-sm text-slate-300 max-w-3xl">
+            Agente inteligente que centraliza, prioriza e executa demandas profissionais diretamente pelo WhatsApp: agenda reuniões por comandos de voz, organiza e responde e-mails corporativos nativamente e mitiga o <strong>Toggling Tax</strong>.
+          </p>
+        </div>
+        <div class="flex items-center space-x-3 self-start md:self-center bg-white/10 backdrop-blur-md px-4 py-2.5 rounded-xl border border-white/10">
+          <div class="text-right">
+            <div class="text-xs text-slate-300">Tempo de Apresentação</div>
+            <div class="text-sm font-bold text-white font-mono">00:35:30 – 00:45:35</div>
+          </div>
+          <div class="h-8 w-px bg-white/20"></div>
+          <div>
+            <div class="text-xs text-slate-300">Apresentadores</div>
+            <div class="text-sm font-bold text-emerald-300">Carlos Amaral & Andrea Eric</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notice Banner for the Team -->
+  <div class="bg-emerald-700 text-white text-xs py-2.5 px-4 shadow-inner">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <div class="flex items-center space-x-2">
+        <svg class="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/></svg>
+        <span><strong>Documento de Devolutiva Oficial:</strong> Este dashboard contém o feedback crítico da banca examinadora (destaque para as análises de infraestrutura de IA e defensabilidade de longo prazo) para guiar a equipe Norman nas mentorias do PIBEP 2026.</span>
+      </div>
+      <span class="hidden md:inline font-mono font-medium">Banca Fechada · PIBEP 16</span>
+    </div>
+  </div>
+
+  <!-- Main Container -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+    <!-- KPI Summary Grid -->
+    <section class="grid grid-cols-2 md:grid-cols-5 gap-4">
+      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm hover:border-emerald-400 transition-all">
+        <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Perda por Troca de Apps</div>
+        <div class="mt-1 text-2xl font-bold text-rose-600">~9% tempo</div>
+        <div class="text-xs text-slate-500 mt-1">1.200 trocas/dia (Harvard, 2022)</div>
+      </div>
+      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm hover:border-emerald-400 transition-all">
+        <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Pesquisa de Demanda</div>
+        <div class="mt-1 text-2xl font-bold text-slate-900">121 resp.</div>
+        <div class="text-xs text-slate-500 mt-1">75% gastam 1h+/dia / 68% pagariam</div>
+      </div>
+      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm hover:border-emerald-400 transition-all">
+        <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Tração no Beta Fechado</div>
+        <div class="mt-1 text-2xl font-bold text-emerald-600">27 testers</div>
+        <div class="text-xs text-slate-500 mt-1">Nota de utilidade > 4,1 / 5,0</div>
+      </div>
+      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm hover:border-emerald-400 transition-all">
+        <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Planos Google Play</div>
+        <div class="mt-1 text-lg font-bold text-indigo-600">R$ 39,90 e 69,90</div>
+        <div class="text-xs text-slate-500 mt-1">Smart e Pro (Assinatura mensal)</div>
+      </div>
+      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm hover:border-emerald-400 transition-all col-span-2 md:col-span-1">
+        <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Meta Imediata</div>
+        <div class="mt-1 text-xl font-bold text-teal-600">50 pagantes</div>
+        <div class="text-xs text-slate-500 mt-1">Meta até 04/12/2026</div>
+      </div>
+    </section>
+
+    <!-- Interactive Navigation Tabs -->
+    <div class="border-b border-slate-200 no-print">
+      <nav class="flex space-x-6 overflow-x-auto" aria-label="Tabs">
+        <button class="tab-btn pb-3 px-1 border-b-2 font-semibold text-sm border-emerald-600 text-emerald-600 transition-colors whitespace-nowrap" data-tab="tab-banca">
+          ★ Devolutiva da Banca (Arguição & Réplica)
+        </button>
+        <button class="tab-btn pb-3 px-1 border-b-2 font-semibold text-sm border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300 transition-colors whitespace-nowrap" data-tab="tab-pitch">
+          1. Resumo do Pitch & Os 3 Pilares
+        </button>
+        <button class="tab-btn pb-3 px-1 border-b-2 font-semibold text-sm border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300 transition-colors whitespace-nowrap" data-tab="tab-onepager">
+          2. Dados do One-Pager PDF & Roadmap
+        </button>
+        <button class="tab-btn pb-3 px-1 border-b-2 font-semibold text-sm border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300 transition-colors whitespace-nowrap" data-tab="tab-scorecard">
+          3. Scorecard PIBEP & Plano de Ação
+        </button>
+      </nav>
+    </div>
+
+    <!-- TAB: Devolutiva da Banca (DESTAQUE MÁXIMO) -->
+    <div id="tab-banca" class="tab-content space-y-6">
+      
+      <!-- Executive Summary of Board's Sentiment -->
+      <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+        <div class="flex items-center justify-between mb-3">
+          <h3 class="text-lg font-bold text-slate-900 flex items-center">
+            <span class="w-3 h-3 rounded-full bg-emerald-600 mr-2"></span>
+            Diagnóstico Geral da Banca Examinadora
+          </h3>
+          <span class="px-2.5 py-1 text-xs font-semibold rounded-md bg-emerald-50 text-emerald-700 border border-emerald-200">
+            Recepção: Entusiasmo Tecnológico com Debate sobre Defensabilidade
+          </span>
+        </div>
+        <p class="text-xs text-slate-600 leading-relaxed">
+          A banca avaliadora elogiou a elegância da solução, o encaixe natural no WhatsApp (onde o usuário brasileiro já passa o dia) e a sofisticação da arquitetura de integração nativa entre e-mails, Google Workspace e calendários. O jurado Bruno (empreendedor experiente) liderou uma das arguições mais profundas do Demoday, trazendo benchmarks de mercado e duas provocações estratégicas de alto calibre:
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-4 text-xs">
+          <div class="p-3 bg-indigo-50 border border-indigo-200 rounded-xl text-indigo-900">
+            <strong class="block mb-1 font-bold">1. Benchmark Real do "Meu Assessor"</strong>
+            Bruno validou que a proposta de valor dentro do WhatsApp é uma máquina de tração comprovada pelo sucesso do *Meu Assessor* (Felipe Titto) a R$ 29,90/mês, confirmando que as pessoas pagam com prazer pela conveniência de não configurar sistemas complexos.
+          </div>
+          <div class="p-3 bg-amber-50 border border-amber-200 rounded-xl text-amber-900">
+            <strong class="block mb-1 font-bold">2. Otimização de Custos de IA (Open-Source / Local)</strong>
+            Alerta técnico sobre a queima de margem ao depender exclusivamente de chamadas de API pagas da OpenAI e da Anthropic. A banca sugeriu modelos open-source executados localmente/offline para operações rotineiras sem consumir tokens caros.
+          </div>
+          <div class="p-3 bg-rose-50 border border-rose-200 rounded-xl text-rose-900">
+            <strong class="block mb-1 font-bold">3. Barreira de Entrada em 5–6 Anos</strong>
+            Provocação existencial: se as IAs das Big Techs (Apple Intelligence, Gemini, Meta AI) se tornarem triviais e autônomas nos próximos anos, como o Norman sobrevive e mantém relevância de mercado?
+          </div>
+        </div>
+      </div>
+
+      <!-- Detailed Juror Review & Dialogue -->
+      <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-100 pb-3 mb-4 gap-2">
+          <div class="flex items-center space-x-2">
+            <span class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-700 font-bold flex items-center justify-center text-xs">J1</span>
+            <div>
+              <h4 class="text-sm font-bold text-slate-900">Bruno</h4>
+              <p class="text-[11px] text-slate-500">Empreendedor de Mercado · Convidado Especial / SEMIC</p>
+            </div>
+          </div>
+          <span class="text-xs font-mono bg-slate-100 text-slate-600 px-2 py-1 rounded self-start sm:self-auto">
+            Timestamp no Vídeo: 00:40:40 – 00:43:40
+          </span>
+        </div>
+
+        <div class="space-y-3 text-xs leading-relaxed">
+          <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+            <div class="font-bold text-slate-800 mb-1 flex items-center">
+              <span class="w-2 h-2 rounded-full bg-emerald-500 mr-1.5"></span>
+              Elogio e Validação de Modelo:
+            </div>
+            <p class="text-slate-600 italic">
+              "Parabéns! Achei muito maneiro, essas integrações realmente são espetaculares. E o histórico comprova: o 'Meu Assessor', para quem é o fundador [Felipe Titto], é o melhor negócio dele, ele fala isso nos podcasts adoidado. O preço de R$ 29,90 funcionou para ele espetacularmente."
+            </p>
+          </div>
+
+          <div class="p-3 bg-amber-50/50 rounded-xl border border-amber-200">
+            <div class="font-bold text-amber-900 mb-1 flex items-center">
+              <span class="w-2 h-2 rounded-full bg-amber-500 mr-1.5"></span>
+              Sugestão Técnica Estratégica — IAs Open-Source e Operação Offline:
+            </div>
+            <p class="text-slate-700 italic mb-2">
+              "Fiz um negócio no Claude esses dias só sobre o meu e-mail... mas nisso, uma sugestão: procurem as IAs que funcionam offline/locais. Vocês diminuem esse custo operacional de tokens. Tem um monte... a China está fazendo demais isso e deixou em open-source. Vocês podem botar num servidor próprio e ele vai rodar essas coisas para a galera sem gastar token algum a cada mensagem."
+            </p>
+            <div class="text-[11px] text-amber-950 bg-white/70 p-2 rounded-lg border border-amber-100">
+              <strong>Insight do Jurado:</strong> Modelos proprietários (GPT-4o, Claude 3.5 Sonnet) cobram por requisição. Se um usuário ativo enviar dezenas de mensagens e e-mails por dia, o custo de API do Norman pode ultrapassar a assinatura de R$ 39,90. Rodar modelos menores locais (Llama, DeepSeek, Qwen) para triagem corta drasticamente os custos operacionais.
+            </div>
+          </div>
+
+          <div class="p-3 bg-rose-50/50 rounded-xl border border-rose-200">
+            <div class="font-bold text-rose-900 mb-1 flex items-center">
+              <span class="w-2 h-2 rounded-full bg-rose-500 mr-1.5"></span>
+              A Grande Pergunta de Defensabilidade — A Barreira de Entrada em 5–6 Anos:
+            </div>
+            <p class="text-slate-700 italic mb-2">
+              "Um ponto que queria que vocês falassem é a barreira de entrada. A gente sabe que essas tendências de IA, na lógica de alguns teóricos, vão ter mercado nos próximos 5 ou 6 anos. Depois disso, vai ser tão intuitivo que cada pessoa poderá produzir o seu próprio assessor pessoal, e talvez esse mercado não esteja mais presente. Como vocês olham para isso e as tendências futuras para a manutenção da existência de vocês?"
+            </p>
+          </div>
+
+          <!-- A Resposta de Ouro do Pitch -->
+          <div class="p-4 bg-emerald-50 rounded-xl border border-emerald-200">
+            <div class="font-bold text-emerald-900 mb-1 flex items-center">
+              <span class="w-2 h-2 rounded-full bg-emerald-600 mr-1.5"></span>
+              Como a Equipe Respondeu na Réplica (A Analogia da Padaria — Carlos Amaral):
+            </div>
+            <p class="text-emerald-950 mb-2">
+              Carlos Amaral respondeu com uma das analogias mais perspicazes do Demoday:
+            </p>
+            <blockquote class="p-3 bg-white/80 rounded-lg border-l-4 border-emerald-500 text-slate-800 italic my-2">
+              "A respeito da questão de daqui a 5 anos cada um poder fazer sua IA... é como fazer pão: qualquer um tem farinha, água e forno em casa para fazer pão, mas todo mundo prefere ir comprar o pão quentinho na padaria pela conveniência. Ter que fazer todo um setup técnico para criar o seu próprio assistente afasta 99% das pessoas. O nosso diferencial não é apenas o modelo de IA, é a interface com atrito zero dentro do WhatsApp que aprende a rotina do usuário sem ele precisar programar nada."
+            </blockquote>
+            <p class="text-[11px] text-emerald-900 mt-2">
+              Sobre o público-alvo, Carlos esclareceu que iniciaram avaliando B2B e B2C, mas afunilaram <strong>100% no B2C para profissionais com rotina sobrecarregada</strong> para atingir tração rápida antes de construir a versão corporativa.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Items for the Team (O que fazer na mentoria) -->
+      <div class="bg-gradient-to-r from-emerald-900 via-teal-900 to-slate-900 text-white p-6 rounded-2xl shadow-md">
+        <h3 class="text-base font-bold text-white mb-2 flex items-center">
+          <svg class="w-5 h-5 mr-2 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+          Plano de Trabalho Imediato para a Equipe Norman (Fase de Operação)
+        </h3>
+        <p class="text-xs text-emerald-200 mb-4 leading-relaxed">
+          Com base na devolutiva da banca, estas são as quatro prioridades que Andrea Eric, Carlos e Otávio devem levar para as sessões de mentoria com o SEBRAE/PR e professores da PUCPR:
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+          <div class="p-3 bg-white/10 rounded-xl border border-white/10">
+            <strong class="text-emerald-300 block mb-1">1. Arquitetura Híbrida de IA (Redução de Tokens)</strong>
+            Implementar um modelo open-source menor e mais barato (ex.: Llama 3.1 8B ou Qwen) para triagem e classificação de rotina, acionando Claude/GPT-4o apenas para redação complexa de e-mails, protegendo a margem do plano Smart (R$ 39,90).
+          </div>
+          <div class="p-3 bg-white/10 rounded-xl border border-white/10">
+            <strong class="text-emerald-300 block mb-1">2. Executar o Cronograma de Lançamento (04/11 e 05/11)</strong>
+            Cumprir à risca o marco contratual do One-Pager: liberar o app na Play Store em 04/11, encerrar o beta fechado e disparar os R$ 400 em anúncios no Instagram para atingir a meta de 50 assinantes pagantes até 04/12.
+          </div>
+          <div class="p-3 bg-white/10 rounded-xl border border-white/10">
+            <strong class="text-emerald-300 block mb-1">3. Lançar o Suporte a Eventos Recorrentes</strong>
+            Priorizar no backlog a funcionalidade mais pedida pelos 27 testers: agendamento de reuniões e lembretes recorrentes (semanais/mensais), que é o principal gatilho de retenção (*churn reduction*).
+          </div>
+          <div class="p-3 bg-white/10 rounded-xl border border-white/10">
+            <strong class="text-emerald-300 block mb-1">4. Monitorar a Dependência da API do WhatsApp</strong>
+            Mitigar o risco regulatório e de custos da Meta Cloud API. Manter a infraestrutura pronta para acionar canais alternativos (Telegram, WebApp, extensões de navegador) caso a Meta altere políticas de precificação de mensagens ativas.
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- TAB 1: Pitch & Os 3 Pilares -->
+    <div id="tab-pitch" class="tab-content hidden space-y-6">
+      
+      <!-- Narrative & Hook Card -->
+      <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-lg font-bold text-slate-900 flex items-center">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-600 mr-2"></span>
+            A Dor da "Obesidade Informacional" e o Toggling Tax
+          </h3>
+          <span class="text-xs font-mono bg-slate-100 text-slate-600 px-2 py-1 rounded">
+            Timestamp: 00:35:30
+          </span>
+        </div>
+        <blockquote class="p-4 bg-slate-50 border-l-4 border-emerald-500 text-slate-700 italic text-sm rounded-r-lg mb-4">
+          "Vivemos na era da informação, mas sofremos de obesidade informacional. Sabe aquela sensação de entrar no WhatsApp ou e-mail e pensar: 'O que eu ia fazer aqui mesmo?' Isso é desgaste mental. A Harvard Business Review comprovou o fenômeno do Toggling Tax: são cerca de 1.200 trocas de abas e aplicativos por dia, jogando fora 9% do tempo de trabalho anual — são 16 horas por mês no lixo."
+        </blockquote>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm mt-4">
+          <div class="p-3 bg-emerald-50/50 rounded-xl border border-emerald-100">
+            <div class="font-semibold text-emerald-950 mb-1">Pilar 1: Centralização</div>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Unifica ecossistemas tradicionalmente rivais (Google Workspace, Microsoft Outlook, WhatsApp e Telegram) sob uma única interface conversacional.
+            </p>
+          </div>
+          <div class="p-3 bg-teal-50/50 rounded-xl border border-teal-100">
+            <div class="font-semibold text-teal-950 mb-1">Pilar 2: Priorização</div>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Aprende a rotina do usuário (ex.: prioriza e-mails corporativos das 8h às 18h) e separa automaticamente o que é urgente do que é ruído ou spam.
+            </p>
+          </div>
+          <div class="p-3 bg-blue-50/50 rounded-xl border border-blue-100">
+            <div class="font-semibold text-blue-950 mb-1">Pilar 3: Execução Autônoma</div>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Não é apenas um gerenciador de tarefas: recebe áudios e comandos de voz, agenda reuniões na agenda oficial e responde e-mails de forma nativa.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Functional Demonstration Flow -->
+      <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+        <h3 class="text-lg font-bold text-slate-900 mb-4">Como Funciona na Prática (Fluxo em 3 Etapas)</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="p-4 rounded-xl border border-slate-200 bg-slate-50/50">
+            <div class="text-emerald-600 font-bold text-xs uppercase mb-1">Passo 1</div>
+            <h4 class="font-bold text-slate-900 text-sm mb-1">Conexão Rápida</h4>
+            <p class="text-xs text-slate-600">O usuário cria a conta no app Android ou na web e autentica suas caixas de e-mail e calendários com segurança.</p>
+          </div>
+          <div class="p-4 rounded-xl border border-slate-200 bg-slate-50/50">
+            <div class="text-emerald-600 font-bold text-xs uppercase mb-1">Passo 2</div>
+            <h4 class="font-bold text-slate-900 text-sm mb-1">Comando no WhatsApp</h4>
+            <p class="text-xs text-slate-600">Encaminha um áudio, texto ou mensagem recebida: <em>"Norman, marca reunião com a banca amanhã às 14h"</em>.</p>
+          </div>
+          <div class="p-4 rounded-xl border border-slate-200 bg-slate-50/50">
+            <div class="text-emerald-600 font-bold text-xs uppercase mb-1">Passo 3</div>
+            <h4 class="font-bold text-slate-900 text-sm mb-1">Execução e Briefing</h4>
+            <p class="text-xs text-slate-600">O Norman agenda, envia convite aos participantes e dispara um resumo matinal com os compromissos do dia.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 2: Dados do One-Pager PDF & Roadmap -->
+    <div id="tab-onepager" class="tab-content hidden space-y-6">
+      <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-lg font-bold text-slate-900">Evidências e Dados Oficiais do One-Pager (Norman.pdf)</h3>
+          <span class="text-xs bg-slate-100 text-slate-600 px-2 py-1 rounded font-mono">Material de Apoio Entregue à Banca</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          
+          <!-- Matriz Competitiva Mapeada -->
+          <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3">Matriz de Diferenciação Competitiva</h4>
+            <table class="w-full text-xs text-left border-collapse">
+              <thead>
+                <tr class="border-b border-slate-200 text-slate-500">
+                  <th class="py-2">Solução</th>
+                  <th class="py-2">Canal Principal</th>
+                  <th class="py-2">Limitação / Diferencial do Norman</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-200 text-slate-700">
+                <tr>
+                  <td class="py-2 font-medium">Meu Assessor</td>
+                  <td class="py-2">WhatsApp</td>
+                  <td class="py-2">Focado quase que exclusivamente em finanças e notas</td>
+                </tr>
+                <tr>
+                  <td class="py-2 font-medium">Toqi / Zapia</td>
+                  <td class="py-2">App Próprio</td>
+                  <td class="py-2">Exigem instalação de app e saída do fluxo do WhatsApp</td>
+                </tr>
+                <tr>
+                  <td class="py-2 font-medium">Dots (OpenAI)</td>
+                  <td class="py-2">Web / API</td>
+                  <td class="py-2">Caro ($ 537/mês em dólar) e exige setup prévio de código</td>
+                </tr>
+                <tr>
+                  <td class="py-2 font-medium">Any.do</td>
+                  <td class="py-2">App Móvel</td>
+                  <td class="py-2">Apenas gestão passiva de tarefas sem inteligência agêntica</td>
+                </tr>
+                <tr class="bg-emerald-50/50 font-semibold text-emerald-900">
+                  <td class="py-2">Norman</td>
+                  <td class="py-2">WhatsApp Nativo</td>
+                  <td class="py-2">Execução completa de e-mail e agenda com IA em português</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Depoimentos Reais de Testers -->
+          <div class="space-y-4">
+            <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+              <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Depoimentos Literais dos Testers (Beta Fechado)</h4>
+              <div class="space-y-2 text-xs text-slate-700">
+                <blockquote class="p-2 bg-white rounded border-l-2 border-emerald-500 italic">
+                  "Muito prático, consigo realizar tudo dentro de uma conversa no Whats." — <strong>Andreina, Psicóloga</strong>
+                </blockquote>
+                <blockquote class="p-2 bg-white rounded border-l-2 border-emerald-500 italic">
+                  "Excelente app, agendar reuniões com leads ficou muito mais fácil." — <strong>Rodolfo, Vendedor</strong>
+                </blockquote>
+                <blockquote class="p-2 bg-white rounded border-l-2 border-emerald-500 italic">
+                  "Facilitou demais com os e-mails e agendar reuniões e compromissos." — <strong>Paulo, Empresário</strong>
+                </blockquote>
+                <blockquote class="p-2 bg-white rounded border-l-2 border-emerald-500 italic">
+                  "Uso para não esquecer as datas de pagamentos, curti demais como ele me lembra." — <strong>Hiro, Autônomo</strong>
+                </blockquote>
+              </div>
+            </div>
+
+            <!-- Cronograma Formal -->
+            <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+              <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Cronograma Contratual (Novembro/Dezembro 2026)</h4>
+              <ul class="text-xs text-slate-700 space-y-1.5">
+                <li><strong>04/11/2026:</strong> Lançamento público na Google Play Store e encerramento do beta fechado.</li>
+                <li><strong>05/11/2026:</strong> Início das campanhas impulsionadas no Instagram (verba de R$ 400,00).</li>
+                <li><strong>Pós-Lançamento:</strong> Implementação de eventos recorrentes (demandado pelos testers).</li>
+                <li><strong>04/12/2026:</strong> Meta comercial de atingir 50 assinantes pagantes ativos.</li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 3: Scorecard PIBEP & Recomendações -->
+    <div id="tab-scorecard" class="tab-content hidden space-y-6">
+      
+      <!-- Scorecard Matrix -->
+      <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+        <h3 class="text-lg font-bold text-slate-900 mb-4">Avaliação Técnica nos 5 Critérios Oficiais do PIBEP</h3>
+        <div class="space-y-4">
+          
+          <div>
+            <div class="flex justify-between items-center text-xs font-semibold mb-1">
+              <span>1. Definição do Problema e Dor de Mercado</span>
+              <span class="text-emerald-700 font-bold">Excelente (9.5/10)</span>
+            </div>
+            <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
+              <div class="bg-emerald-500 h-full rounded-full" style="width: 95%"></div>
+            </div>
+            <p class="text-[11px] text-slate-500 mt-1">Conceito de 'Toggling Tax' da Harvard Business Review perfeitamente articulado e compreendido por todos.</p>
+          </div>
+
+          <div>
+            <div class="flex justify-between items-center text-xs font-semibold mb-1">
+              <span>2. Nível de Validação e Estágio do MVP</span>
+              <span class="text-emerald-700 font-bold">Muito Forte (9.0/10)</span>
+            </div>
+            <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
+              <div class="bg-emerald-500 h-full rounded-full" style="width: 90%"></div>
+            </div>
+            <p class="text-[11px] text-slate-500 mt-1">27 testers ativos no beta fechado, pesquisa robusta com 121 respondentes e sistema funcionando ao vivo.</p>
+          </div>
+
+          <div>
+            <div class="flex justify-between items-center text-xs font-semibold mb-1">
+              <span>3. Modelo de Negócios e Viabilidade Comercial</span>
+              <span class="text-blue-700 font-bold">Consistente com Desafio de Margem (8.0/10)</span>
+            </div>
+            <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
+              <div class="bg-blue-500 h-full rounded-full" style="width: 80%"></div>
+            </div>
+            <p class="text-[11px] text-slate-500 mt-1">Planos Smart (R$ 39,90) e Pro (R$ 69,90) calibrados, mas precisam vigiar os custos de consumo de API de IA.</p>
+          </div>
+
+          <div>
+            <div class="flex justify-between items-center text-xs font-semibold mb-1">
+              <span>4. Gestão Financeira & Alocação do Micro Seed</span>
+              <span class="text-emerald-700 font-bold">Muito Boa (8.5/10)</span>
+            </div>
+            <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
+              <div class="bg-emerald-500 h-full rounded-full" style="width: 85%"></div>
+            </div>
+            <p class="text-[11px] text-slate-500 mt-1">Alocação equilibrada entre infraestrutura de servidores, tokens variáveis e tráfego pago de aquisição.</p>
+          </div>
+
+          <div>
+            <div class="flex justify-between items-center text-xs font-semibold mb-1">
+              <span>5. Postura da Equipe e Qualidade do Pitch</span>
+              <span class="text-emerald-700 font-bold">Excepcional (9.5/10)</span>
+            </div>
+            <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
+              <div class="bg-emerald-500 h-full rounded-full" style="width: 95%"></div>
+            </div>
+            <p class="text-[11px] text-slate-500 mt-1">Excelente domínio de palco e oratória segura de Carlos Amaral; destaque para a brilhante resposta da 'analogia da padaria'.</p>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Delta Evolution Card -->
+      <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+        <h3 class="text-lg font-bold text-slate-900 mb-3">Delta de Evolução: Banca Prévia (07/10) vs. Demoday (28/10)</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+          <div class="p-4 bg-rose-50 rounded-xl border border-rose-100">
+            <span class="font-bold text-rose-800 uppercase block mb-1">Apontamentos na Banca Prévia (07/10)</span>
+            <ul class="space-y-1 text-slate-600 list-disc list-inside">
+              <li>Apresentação excessivamente textual e carregada de detalhes técnicos de código.</li>
+              <li>Alerta severo sobre risco de obsolescência súbita frente às Big Techs (OpenAI, Meta).</li>
+              <li>Necessidade premente de comprovar retenção real com usuários externos.</li>
+            </ul>
+          </div>
+          <div class="p-4 bg-emerald-50 rounded-xl border border-emerald-100">
+            <span class="font-bold text-emerald-800 uppercase block mb-1">Ajustes Comprovados no Demoday (28/10)</span>
+            <ul class="space-y-1 text-slate-600 list-disc list-inside">
+              <li>Pitch muito mais dinâmico, focado no benefício de tempo e na dor universal do dia a dia.</li>
+              <li>Defesa sólida e madura da barreira de entrada baseada em conveniência e fricção zero.</li>
+              <li>One-Pager com depoimentos reais de profissionais de diferentes segmentos.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Interactive Script -->
+  <script>
+    // Tab Switching Logic
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetId = btn.getAttribute('data-tab');
+
+        // Update Buttons UI
+        tabBtns.forEach(b => {
+          b.classList.remove('border-emerald-600', 'text-emerald-600');
+          b.classList.add('border-transparent', 'text-slate-500');
+        });
+        btn.classList.add('border-emerald-600', 'text-emerald-600');
+        btn.classList.remove('border-transparent', 'text-slate-500');
+
+        // Update Contents UI
+        tabContents.forEach(content => {
+          if (content.id === targetId) {
+            content.classList.remove('hidden');
+          } else {
+            content.classList.add('hidden');
+          }
+        });
+      });
+    });
+
+    // Print Button
+    const printBtn = document.getElementById('btnPrint');
+    if (printBtn) {
+      printBtn.addEventListener('click', () => {
+        window.print();
+      });
+    }
+  </script>
+</body>
+</html>

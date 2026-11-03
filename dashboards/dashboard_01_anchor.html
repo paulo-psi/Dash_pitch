@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Executivo & Devolutiva da Banca — Anchor | PIBEP PUCPR 2026</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    @media print {
+      .no-print { display: none !important; }
+      .tab-content { display: block !important; }
+      body { background: white; color: black; }
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen">
+
+  <!-- Top Header / Navigation Bar -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+      <div class="flex items-center space-x-3">
+        <!-- Global Hub & Team Switcher Bar -->
+        <div class="flex items-center space-x-2 mr-3 no-print">
+          <a href="../index.html" class="inline-flex items-center px-2.5 py-1 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg border border-slate-200 transition-colors">
+            <svg class="w-3.5 h-3.5 mr-1 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+            Hub
+          </a>
+          <select id="teamSelector" onchange="if(this.value) window.location.href=this.value" class="text-xs bg-slate-50 hover:bg-slate-100 border border-slate-300 rounded-lg px-2.5 py-1 font-semibold text-slate-800 cursor-pointer focus:ring-2 focus:ring-blue-500">
+              <option value="dashboard_01_anchor.html" selected>01. Anchor</option>
+              <option value="dashboard_02_integremente.html">02. IntegreMente</option>
+              <option value="dashboard_03_norman.html">03. Norman</option>
+              <option value="dashboard_04_nock.html">04. Nock</option>
+              <option value="dashboard_05_manka.html">05. Manka</option>
+              <option value="dashboard_06_kaden.html">06. Kaden</option>
+              <option value="dashboard_07_plantoniq.html">07. PlantonIQ</option>
+              <option value="dashboard_08_recoup.html">08. Recoup IA</option>
+          </select>
+        </div>
+
+          <span class="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-blue-600 text-white font-bold text-lg shadow-sm">
+            01
+          </span>
+          <div>
+            <div class="flex items-center space-x-2">
+              <h1 class="text-xl font-bold text-slate-900">Anchor</h1>
+              <span class="px-2.5 py-0.5 text-xs font-semibold rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200">
+                Healthtech / Wellness
+              </span>
+              <span class="px-2.5 py-0.5 text-xs font-medium rounded-full bg-blue-50 text-blue-700 border border-blue-200">
+                Demoday PIBEP 2026
+              </span>
+            </div>
+            <p class="text-xs text-slate-500">Relatório Oficial de Avaliação & Devolutiva da Banca · 28/10/2026</p>
+          </div>
+        </div>
+
+        <!-- Quick Actions & Links -->
+        <div class="flex items-center space-x-2 no-print">
+          <a href="../assets/pdfs/Anchor.pdf" target="_blank" rel="noopener noreferrer" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-3 py-1.5 text-xs font-medium rounded-lg text-slate-700 bg-slate-100 hover:bg-slate-200 transition-colors border border-slate-200">
+            <svg class="w-3.5 h-3.5 mr-1.5 text-rose-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-9.5 8.5h3v1.5h-3v-1.5zm0-3h3V10h-3V8.5zm5 6h-8V7h8v7.5z"/></svg>
+            One-Pager PDF
+          </a>
+          <a href="https://drive.google.com/file/d/1iWYQ_C8i_1igHPQ1S27FNbRXwH_h4UGM/view?usp=drivesdk" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-3 py-1.5 text-xs font-medium rounded-lg text-blue-700 bg-blue-50 hover:bg-blue-100 transition-colors border border-blue-200">
+            <svg class="w-3.5 h-3.5 mr-1.5 text-blue-600" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            Vídeo (00:13:15)
+          </a>
+          <button id="btnPrint" class="inline-flex items-center px-3 py-1.5 text-xs font-medium rounded-lg text-slate-700 bg-white hover:bg-slate-50 border border-slate-300 transition-colors">
+            <svg class="w-3.5 h-3.5 mr-1.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+            Exportar / Imprimir
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Startup Hero Header -->
+  <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-blue-950 text-white py-6 border-b border-indigo-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div>
+          <span class="inline-block text-xs uppercase tracking-wider font-semibold text-teal-400 mb-1">
+            "Transforme impulso em controle"
+          </span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight">
+            Anchor — Ecossistema Integrado para Cessação do Tabagismo
+          </h2>
+          <p class="mt-1 text-sm text-slate-300 max-w-3xl">
+            Solução híbrida combinando <strong>aplicativo comportamental com botão SOS</strong> e <strong>dispositivo inalador mecânico</strong> (sem nicotina e sem combustão) para intervir no momento crítico da fissura (<em>craving</em>).
+          </p>
+        </div>
+        <div class="flex items-center space-x-3 self-start md:self-center bg-white/10 backdrop-blur-md px-4 py-2.5 rounded-xl border border-white/10">
+          <div class="text-right">
+            <div class="text-xs text-slate-300">Tempo de Apresentação</div>
+            <div class="text-sm font-bold text-white font-mono">00:13:15 – 00:24:15</div>
+          </div>
+          <div class="h-8 w-px bg-white/20"></div>
+          <div>
+            <div class="text-xs text-slate-300">Apresentadora</div>
+            <div class="text-sm font-bold text-teal-300">Lilian Lima Waszak</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notice Banner for the Team -->
+  <div class="bg-blue-600 text-white text-xs py-2.5 px-4 shadow-inner">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <div class="flex items-center space-x-2">
+        <svg class="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/></svg>
+        <span><strong>Documento de Devolutiva Oficial:</strong> Este dashboard contém o mapeamento detalhado dos comentários, perguntas e provocações da banca avaliadora para guiar a equipe Anchor nas mentorias de aceleração com o SEBRAE/PR e a PUCPR.</span>
+      </div>
+      <span class="hidden md:inline font-mono font-medium">Banca Fechada · PIBEP 16</span>
+    </div>
+  </div>
+
+  <!-- Main Container -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+    <!-- KPI Summary Grid -->
+    <section class="grid grid-cols-2 md:grid-cols-5 gap-4">
+      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm hover:border-blue-400 transition-all">
+        <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Fumantes no Brasil</div>
+        <div class="mt-1 text-2xl font-bold text-slate-900">20,4M</div>
+        <div class="text-xs text-slate-500 mt-1">46,6% tentaram parar em 12m (PNS)</div>
+      </div>
+      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm hover:border-blue-400 transition-all">
+        <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Custo do Tabagismo</div>
+        <div class="mt-1 text-2xl font-bold text-rose-600">R$ 153,5 bi</div>
+        <div class="text-xs text-slate-500 mt-1">Custo anual estimado (INCA 2024)</div>
+      </div>
+      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm hover:border-blue-400 transition-all">
+        <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Modelo Tarifário</div>
+        <div class="mt-1 text-2xl font-bold text-indigo-600">R$ 39,90<span class="text-xs font-normal text-slate-500">/mês</span></div>
+        <div class="text-xs text-slate-500 mt-1">Combo anual c/ hardware: R$ 399,99</div>
+      </div>
+      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm hover:border-blue-400 transition-all">
+        <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Maturidade de Validação</div>
+        <div class="mt-1 text-lg font-bold text-teal-600 flex items-center">
+          <span class="inline-block w-2.5 h-2.5 rounded-full bg-teal-500 mr-1.5"></span>
+          MVP + Protótipo 3D
+        </div>
+        <div class="text-xs text-slate-500 mt-1">14 testers manuseio + Piloto CEP</div>
+      </div>
+      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm hover:border-blue-400 transition-all col-span-2 md:col-span-1">
+        <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Meta Seletiva</div>
+        <div class="mt-1 text-xl font-bold text-amber-600">Fase Operação</div>
+        <div class="text-xs text-slate-500 mt-1">+ R$ 2.500 (Aporte 3)</div>
+      </div>
+    </section>
+
+    <!-- Interactive Navigation Tabs -->
+    <div class="border-b border-slate-200 no-print">
+      <nav class="flex space-x-6 overflow-x-auto" aria-label="Tabs">
+        <button class="tab-btn pb-3 px-1 border-b-2 font-semibold text-sm border-blue-600 text-blue-600 transition-colors whitespace-nowrap" data-tab="tab-banca">
+          ★ Devolutiva da Banca (4 Jurados & Réplica)
+        </button>
+        <button class="tab-btn pb-3 px-1 border-b-2 font-semibold text-sm border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300 transition-colors whitespace-nowrap" data-tab="tab-pitch">
+          1. Resumo do Pitch & Proposta de Valor
+        </button>
+        <button class="tab-btn pb-3 px-1 border-b-2 font-semibold text-sm border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300 transition-colors whitespace-nowrap" data-tab="tab-onepager">
+          2. Dados do One-Pager PDF Auditado
+        </button>
+        <button class="tab-btn pb-3 px-1 border-b-2 font-semibold text-sm border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300 transition-colors whitespace-nowrap" data-tab="tab-scorecard">
+          3. Scorecard PIBEP & Plano de Ação
+        </button>
+      </nav>
+    </div>
+
+    <!-- TAB: Devolutiva da Banca (DESTAQUE MÁXIMO) -->
+    <div id="tab-banca" class="tab-content space-y-6">
+      
+      <!-- Executive Summary of Board's Sentiment -->
+      <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+        <div class="flex items-center justify-between mb-3">
+          <h3 class="text-lg font-bold text-slate-900 flex items-center">
+            <span class="w-3 h-3 rounded-full bg-indigo-600 mr-2"></span>
+            Diagnóstico Geral da Banca Avaliadora
+          </h3>
+          <span class="px-2.5 py-1 text-xs font-semibold rounded-md bg-indigo-50 text-indigo-700 border border-indigo-200">
+            Recepção: Muito Positiva com Alertas Estruturais
+          </span>
+        </div>
+        <p class="text-xs text-slate-600 leading-relaxed">
+          A banca avaliadora elogiou unanimemente a <strong>relevância social e econômica da dor</strong> enfrentada pela Anchor, a <strong>excelente evolução de postura</strong> em relação à banca prévia e a consistência da abertura humana com a história da Mariana. Em contrapartida, os 4 jurados apontaram de forma incisiva <strong>três nós estratégicos críticos</strong> que a equipe precisa desenatar com urgência para viabilizar o negócio:
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-4 text-xs">
+          <div class="p-3 bg-rose-50 border border-rose-200 rounded-xl text-rose-900">
+            <strong class="block mb-1 font-bold">1. Risco de Associação ao "Vape"</strong>
+            Perigo de rejeição médica, repulsa pública e travas severas da ANVISA se o dispositivo for percebido pelo mercado como um cigarro eletrônico alternativo.
+          </div>
+          <div class="p-3 bg-amber-50 border border-amber-200 rounded-xl text-amber-900">
+            <strong class="block mb-1 font-bold">2. Dualidade Hardware + Software</strong>
+            Complexidade extrema de uma startup em estágio inicial tentar desenvolver e financiar a cadeia industrial de um hardware e o tracionamento de um software ao mesmo tempo.
+          </div>
+          <div class="p-3 bg-blue-50 border border-blue-200 rounded-xl text-blue-900">
+            <strong class="block mb-1 font-bold">3. Quem Paga a Conta (B2B vs. B2C)</strong>
+            Descompasso entre quem sofre a dor física (o fumante) e quem tem o bolso financeiramente machucado pelo absenteísmo e custos médicos (clínicas, empresas e operadoras).
+          </div>
+        </div>
+      </div>
+
+      <!-- Detailed Juror Cards -->
+      <div class="space-y-4">
+        
+        <!-- JURADO 1: Bruno -->
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-100 pb-3 mb-4 gap-2">
+            <div class="flex items-center space-x-2">
+              <span class="w-8 h-8 rounded-lg bg-indigo-100 text-indigo-700 font-bold flex items-center justify-center text-xs">J1</span>
+              <div>
+                <h4 class="text-sm font-bold text-slate-900">Bruno</h4>
+                <p class="text-[11px] text-slate-500">Empreendedor de Mercado · Convidado Especial / SEMIC</p>
+              </div>
+            </div>
+            <span class="text-xs font-mono bg-slate-100 text-slate-600 px-2 py-1 rounded self-start sm:self-auto">
+              Timestamp no Vídeo: 00:19:35
+            </span>
+          </div>
+
+          <div class="space-y-3 text-xs leading-relaxed">
+            <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+              <div class="font-bold text-slate-800 mb-1 flex items-center">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 mr-1.5"></span>
+                Elogio Inicial da Banca:
+              </div>
+              <p class="text-slate-600 italic">"Parabéns. É Lilian, certo? Muito bacana a ideia, achei sensacional."</p>
+            </div>
+
+            <div class="p-3 bg-rose-50/50 rounded-xl border border-rose-200">
+              <div class="font-bold text-rose-900 mb-1 flex items-center">
+                <span class="w-2 h-2 rounded-full bg-rose-500 mr-1.5"></span>
+                Pergunta e Provocação 1 — O Fantasma do Vape:
+              </div>
+              <p class="text-slate-700 italic mb-2">
+                "Quando eu morava na França, começou o cigarro eletrônico e havia uma tendência absurda lá de substituição. Mas começaram a ter outros problemas graves relacionados ao cigarro eletrônico e vimos uma repercussão negativa enorme aí dentro. Como vocês vão barrar isso nesse processo?"
+              </p>
+              <div class="text-[11px] text-rose-950 bg-white/70 p-2 rounded-lg border border-rose-100">
+                <strong>Insight do Jurado:</strong> O mercado e os médicos desconfiam de qualquer coisa que lembre cigarro eletrônico. Se a Anchor não deixar cristalinamente evidente que não há bateria explosiva, queima, vapor térmico ou nicotina, o produto será sumariamente rejeitado pelo ecossistema de saúde.
+              </div>
+            </div>
+
+            <div class="p-3 bg-blue-50/50 rounded-xl border border-blue-200">
+              <div class="font-bold text-blue-900 mb-1 flex items-center">
+                <span class="w-2 h-2 rounded-full bg-blue-500 mr-1.5"></span>
+                Pergunta e Provocação 2 — Quem Paga a Conta?
+              </div>
+              <p class="text-slate-700 italic mb-2">
+                "A dor que você mostrou, R$ 153 bilhões gastos por ano... Quem paga essa conta? É a pessoa física ou são as instituições que tentam ajudar quem está em recuperação? Se for nisso, talvez seus clientes devam ser as empresas ou clínicas que dão amparo a quem tem a dor. Esse pagador de conta é muito mais fácil de fechar do que pescar usuário por usuário. Você tem um número menor de clientes para vender, mas cada cliente traz uma base de usuários fantasticamente maior."
+              </p>
+              <div class="text-[11px] text-blue-950 bg-white/70 p-2 rounded-lg border border-blue-100">
+                <strong>Insight do Jurado:</strong> O modelo B2C para fumante tem custo de aquisição altíssimo (CAC) e alta taxa de evasão. Já clínicas e planos de saúde têm verba carimbada e incentivo financeiro direto para reduzir despesas de internação e remédios.
+              </div>
+            </div>
+
+            <div class="p-3 bg-emerald-50 rounded-xl border border-emerald-200">
+              <div class="font-bold text-emerald-900 mb-1">Como a Equipe Respondeu na Réplica:</div>
+              <p class="text-emerald-950">
+                Lilian esclareceu que o dispositivo não possui nenhuma semelhança química com vapes (é 100% fluxo de ar externo filtrado com aromatizante natural). Sobre o cliente pagador, reconheceu a força do B2B e explicou que desenharam uma plataforma clínica futura, mas optaram por iniciar no B2C por requerer uma estrutura mais enxuta de validação imediata.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- JURADO 2: Liliane -->
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-100 pb-3 mb-4 gap-2">
+            <div class="flex items-center space-x-2">
+              <span class="w-8 h-8 rounded-lg bg-teal-100 text-teal-700 font-bold flex items-center justify-center text-xs">J2</span>
+              <div>
+                <h4 class="text-sm font-bold text-slate-900">Liliane</h4>
+                <p class="text-[11px] text-slate-500">Habitat Senai de Inovação · Sistema FIEP</p>
+              </div>
+            </div>
+            <span class="text-xs font-mono bg-slate-100 text-slate-600 px-2 py-1 rounded self-start sm:self-auto">
+              Timestamp no Vídeo: 00:20:45
+            </span>
+          </div>
+
+          <div class="space-y-3 text-xs leading-relaxed">
+            <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+              <div class="font-bold text-slate-800 mb-1 flex items-center">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 mr-1.5"></span>
+                Elogio Inicial da Banca:
+              </div>
+              <p class="text-slate-600 italic">"Parabéns, eu também gostei bastante. Acho que o que o Bruno trouxe faz todo o sentido."</p>
+            </div>
+
+            <div class="p-3 bg-amber-50/50 rounded-xl border border-amber-200">
+              <div class="font-bold text-amber-900 mb-1 flex items-center">
+                <span class="w-2 h-2 rounded-full bg-amber-500 mr-1.5"></span>
+                Pergunta e Provocação 1 — Custo de Manufatura e Ciclo de Vida do Hardware:
+              </div>
+              <p class="text-slate-700 italic mb-2">
+                "A questão do custo desse protótipo e desse produto físico eu vejo como um problema, talvez. Tem que entender um pouquinho como vai ser essa produção, para onde vai. E ele é finito para o usuário? Ele comprou e acabou ou funciona como um pendrive reutilizável? Teria que entender isso."
+              </p>
+              <div class="text-[11px] text-amber-950 bg-white/70 p-2 rounded-lg border border-amber-100">
+                <strong>Insight do Jurado:</strong> Produzir hardware exige ferramentais caros de injeção plástica. Se o inalador for descartável, o preço de R$ 249 inviabiliza o consumo; se for permanente, a startup precisa ter um modelo de receita recorrente baseado em refis aromáticos baratos.
+              </div>
+            </div>
+
+            <div class="p-3 bg-indigo-50/50 rounded-xl border border-indigo-200">
+              <div class="font-bold text-indigo-900 mb-1 flex items-center">
+                <span class="w-2 h-2 rounded-full bg-indigo-500 mr-1.5"></span>
+                Dica Prática de Apresentação e Ritmo:
+              </div>
+              <p class="text-slate-700 italic mb-2">
+                "Uma dica para você tentar diminuir um pouquinho o volume na apresentação nesses 5 minutos para falar mais devagar. Fica muito atropelada e você acaba cometendo algum deslize ou deixando de falar alguma coisa mais importante do que só apresentar aceleradamente."
+              </p>
+              <div class="text-[11px] text-indigo-950 bg-white/70 p-2 rounded-lg border border-indigo-100">
+                <strong>Insight do Jurado:</strong> Menos é mais no pitch. Reduzir a quantidade de telas e detalhes mecânicos permite que a oratória respire e fixe as mensagens principais na cabeça dos investidores.
+              </div>
+            </div>
+
+            <div class="p-3 bg-emerald-50 rounded-xl border border-emerald-200">
+              <div class="font-bold text-emerald-900 mb-1">Como a Equipe Respondeu na Réplica:</div>
+              <p class="text-emerald-950">
+                Lilian mostrou o protótipo monobloco em mãos e explicou que o teste com 14 voluntários serviu justamente para redesenhar a peça para que seja modular (corpo reutilizável com abertura para refil de sabor e componentes eletrônicos). Estimou com franqueza o custo industrial entre R$ 25k e R$ 100k, pretendendo buscar captação via crowdfunding e editais (PIBITI).
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- JURADO 3: Gustavo Russi -->
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-100 pb-3 mb-4 gap-2">
+            <div class="flex items-center space-x-2">
+              <span class="w-8 h-8 rounded-lg bg-blue-100 text-blue-700 font-bold flex items-center justify-center text-xs">J3</span>
+              <div>
+                <h4 class="text-sm font-bold text-slate-900">Gustavo Russi</h4>
+                <p class="text-[11px] text-slate-500">SEBRAE/PR · Coordenação Estadual de Startups</p>
+              </div>
+            </div>
+            <span class="text-xs font-mono bg-slate-100 text-slate-600 px-2 py-1 rounded self-start sm:self-auto">
+              Timestamp no Vídeo: 00:21:30
+            </span>
+          </div>
+
+          <div class="space-y-3 text-xs leading-relaxed">
+            <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+              <div class="font-bold text-slate-800 mb-1 flex items-center">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 mr-1.5"></span>
+                Elogio Inicial da Banca:
+              </div>
+              <p class="text-slate-600 italic">"Lilian e equipe, parabéns aí pela iniciativa."</p>
+            </div>
+
+            <div class="p-3 bg-rose-50/50 rounded-xl border border-rose-200">
+              <div class="font-bold text-rose-900 mb-1 flex items-center">
+                <span class="w-2 h-2 rounded-full bg-rose-500 mr-1.5"></span>
+                Pergunta e Provocação Crítica — A Armadilha de Produto e Serviço Simultâneos:
+              </div>
+              <p class="text-slate-700 italic mb-2">
+                "Vocês estão trabalhando com um produto físico e um serviço digital mais ou menos ao mesmo tempo. Isso é um desafio... claro que não é proibido, mas uma empresa nascer assim é um desafio enorme. Já chegaram a pensar ou ainda é uma incógnita para vocês como transformar isso num negócio de fato? O aplicativo tudo bem, mas o produto físico será por assinatura ou venda avulsa? Já pensaram nisso ou é algo que vão deixar para mais para frente?"
+              </p>
+              <div class="text-[11px] text-rose-950 bg-white/70 p-2 rounded-lg border border-rose-100">
+                <strong>Insight do Jurado:</strong> Criar duas empresas dentro de uma (uma fábrica de hardware e uma software house) divide a energia de fundadores universitários. É preciso escolher o motor primário de tração para não morrer sem caixa no meio do caminho.
+              </div>
+            </div>
+
+            <div class="p-3 bg-emerald-50 rounded-xl border border-emerald-200">
+              <div class="font-bold text-emerald-900 mb-1">Como a Equipe Respondeu na Réplica:</div>
+              <p class="text-emerald-950">
+                A equipe defendeu que o app digital entra no ar imediatamente com as ferramentas de SOS e diário de gatilhos para gerar tração rápida, enquanto o dispositivo físico é tratado como um projeto tecnológico em parceria com a universidade, desonerando o caixa operacional imediato da startup.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- JURADO 4: Daucio -->
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-100 pb-3 mb-4 gap-2">
+            <div class="flex items-center space-x-2">
+              <span class="w-8 h-8 rounded-lg bg-cyan-100 text-cyan-700 font-bold flex items-center justify-center text-xs">J4</span>
+              <div>
+                <h4 class="text-sm font-bold text-slate-900">Daucio</h4>
+                <p class="text-[11px] text-slate-500">Agência Curitiba de Desenvolvimento S/A · Ecossistema Vale do Pinhão</p>
+              </div>
+            </div>
+            <span class="text-xs font-mono bg-slate-100 text-slate-600 px-2 py-1 rounded self-start sm:self-auto">
+              Timestamp no Vídeo: 00:22:05
+            </span>
+          </div>
+
+          <div class="space-y-3 text-xs leading-relaxed">
+            <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+              <div class="font-bold text-slate-800 mb-1 flex items-center">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 mr-1.5"></span>
+                Elogio Inicial da Banca:
+              </div>
+              <p class="text-slate-600 italic">"Parabéns, Lilian."</p>
+            </div>
+
+            <div class="p-3 bg-amber-50/50 rounded-xl border border-amber-200">
+              <div class="font-bold text-amber-900 mb-1 flex items-center">
+                <span class="w-2 h-2 rounded-full bg-amber-500 mr-1.5"></span>
+                Pergunta e Provocação — Tamanho Real da Amostra de Validação:
+              </div>
+              <p class="text-slate-700 italic mb-2">
+                "Com quantas pessoas vocês fizeram uma pesquisa de relevância da solução que as pessoas pensavam? Vocês fizeram essa pesquisa com quantas pessoas?"
+              </p>
+              <div class="text-[11px] text-amber-950 bg-white/70 p-2 rounded-lg border border-amber-100">
+                <strong>Insight do Jurado:</strong> No ecossistema de inovação, números pequenos de testes qualitativos (como 14 pessoas) servem para ergonomia, mas não provam demanda de mercado. O investidor quer saber se centenas de pessoas realmente pagariam pelo produto.
+              </div>
+            </div>
+
+            <div class="p-3 bg-rose-50 rounded-xl border border-rose-200">
+              <div class="font-bold text-rose-900 mb-1">Como a Equipe Respondeu na Réplica (Gargalo de Tempo):</div>
+              <p class="text-rose-950">
+                Como o cronômetro cravou os 2 minutos finais durante a resposta sobre custos industriais e crowdfunding, Lilian não teve tempo de verbalizar o volume total de respondentes de pesquisa de mercado, ficando a resposta apoiada nas evidências bibliográficas do One-Pager PDF entregue aos jurados.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Action Items for the Team (O que fazer na mentoria) -->
+      <div class="bg-gradient-to-r from-indigo-900 via-blue-900 to-slate-900 text-white p-6 rounded-2xl shadow-md">
+        <h3 class="text-base font-bold text-white mb-2 flex items-center">
+          <svg class="w-5 h-5 mr-2 text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+          Plano de Trabalho Imediato para a Equipe Anchor (Fase de Operação)
+        </h3>
+        <p class="text-xs text-blue-200 mb-4 leading-relaxed">
+          Com base estrita no feedback dos jurados, estas são as quatro tarefas prioritárias que as fundadoras devem levar para a mesa de mentoria com os consultores do SEBRAE e professores da PUCPR:
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+          <div class="p-3 bg-white/10 rounded-xl border border-white/10">
+            <strong class="text-teal-300 block mb-1">1. Proteger a Marca contra a Pecha de "Vape"</strong>
+            Redigir um documento técnico de compliance e design industrial evidenciando que o inalador não tem circuito de aquecimento ou emissão de vapor. Adotar design sóbrio que lembre dispositivo terapêutico e não acessório recreativo.
+          </div>
+          <div class="p-3 bg-white/10 rounded-xl border border-white/10">
+            <strong class="text-teal-300 block mb-1">2. Priorizar Tração de Software no Curto Prazo</strong>
+            Não condicionar o lançamento do negócio ao término do hardware industrial. Colocar a landing page e o aplicativo mobile no ar para construir base de usuários, testar o botão SOS e gerar métricas de retenção.
+          </div>
+          <div class="p-3 bg-white/10 rounded-xl border border-white/10">
+            <strong class="text-teal-300 block mb-1">3. Estruturar Proposta Piloto B2B para Clínicas</strong>
+            Atender à provocação de Bruno e criar um pacote comercial para clínicas de pneumologia e psicologia de Curitiba, oferecendo o app como ferramenta de acompanhamento e suporte do paciente entre consultas.
+          </div>
+          <div class="p-3 bg-white/10 rounded-xl border border-white/10">
+            <strong class="text-teal-300 block mb-1">4. Validar Demanda Quantitativa (Landing Page com Pré-Cadastro)</strong>
+            Responder à provocação de Daucio lançando a landing page em novembro para captar no mínimo 300 a 500 intenções de compra/cadastro de adultos fumantes interessados na solução.
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- TAB 1: Pitch & Proposta de Valor -->
+    <div id="tab-pitch" class="tab-content hidden space-y-6">
+      
+      <!-- Narrative & Hook Card -->
+      <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-lg font-bold text-slate-900 flex items-center">
+            <span class="w-2.5 h-2.5 rounded-full bg-blue-600 mr-2"></span>
+            Narrativa de Abertura e Storytelling
+          </h3>
+          <span class="text-xs font-mono bg-slate-100 text-slate-600 px-2 py-1 rounded">
+            Timestamp: 00:14:15
+          </span>
+        </div>
+        <blockquote class="p-4 bg-slate-50 border-l-4 border-blue-500 text-slate-700 italic text-sm rounded-r-lg mb-4">
+          "Quanto tempo separa o impulso de uma decisão para quem tenta parar de fumar? Às vezes, segundos. Ontem a Mariana decidiu parar de fumar, jogou fora a carteira de cigarro. Mas hoje, às 7h da manhã, ela preparou o café e a vontade voltou. A Mariana não está sozinha: 46,6% dos fumantes tentaram parar no último ano..."
+        </blockquote>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm mt-4">
+          <div class="p-3 bg-blue-50/50 rounded-xl border border-blue-100">
+            <div class="font-semibold text-blue-950 mb-1">A Dor Crítica (O "Gap")</div>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              O fumante quer parar, mas falha no momento agudo da fissura (<em>craving</em>). O ato de fumar reúne dependência química da nicotina e o hábito motor sensorial (levar o cigarro à boca e tragar).
+            </p>
+          </div>
+          <div class="p-3 bg-indigo-50/50 rounded-xl border border-indigo-100">
+            <div class="font-semibold text-indigo-950 mb-1">A Resposta Anchor</div>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Uma jornada única integrando estratégias psicológicas cognitivo-comportamentais imediatas no celular com uma alternativa física que simula a tragada sem fumaça e sem toxinas.
+            </p>
+          </div>
+          <div class="p-3 bg-emerald-50/50 rounded-xl border border-emerald-100">
+            <div class="font-semibold text-emerald-950 mb-1">Diferencial Próprio</div>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Fundadoras aliam formação em Psicologia com formação jurídica (compliance ético e regulatório); integração nativa com o WhatsApp e vínculo científico com laboratórios da PUCPR.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- The 3 Pillars of Solution -->
+      <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+        <h3 class="text-lg font-bold text-slate-900 mb-4">Arquitetura da Solução em 3 Pilares</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="p-5 rounded-xl border-2 border-blue-100 bg-white hover:border-blue-300 transition-all">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold uppercase tracking-wider text-blue-600">Módulo 1</span>
+              <span class="px-2 py-0.5 text-xs font-bold rounded bg-emerald-100 text-emerald-700">MVP Navegável</span>
+            </div>
+            <h4 class="font-bold text-slate-900 text-base mb-2">Aplicativo Mobile</h4>
+            <ul class="text-xs text-slate-600 space-y-1.5 list-disc list-inside">
+              <li>Botão <strong>SOS Fissura</strong> de resposta rápida</li>
+              <li>Respiração guiada e distração cognitiva</li>
+              <li>Função <em>Encourage</em> (relembra motivos pessoais)</li>
+              <li>Registro de gatilhos diários e mapa de padrões</li>
+              <li>Extensão planejada via bot interativo no WhatsApp</li>
+            </ul>
+          </div>
+          <div class="p-5 rounded-xl border-2 border-indigo-100 bg-white hover:border-indigo-300 transition-all">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold uppercase tracking-wider text-indigo-600">Módulo 2</span>
+              <span class="px-2 py-0.5 text-xs font-bold rounded bg-amber-100 text-amber-700">Prototipagem 3D</span>
+            </div>
+            <h4 class="font-bold text-slate-900 text-base mb-2">Dispositivo Inalador Físico</h4>
+            <ul class="text-xs text-slate-600 space-y-1.5 list-disc list-inside">
+              <li>Fluxo de ar externo controlado (sem nicotina)</li>
+              <li>Substituto mecânico para o hábito de levar à boca</li>
+              <li>Filtro aromático de micragem testada em laboratório</li>
+              <li>Redesenho ergonômico pós-teste com 14 pessoas</li>
+              <li>Evolução tecnológica prevista: sensores e cooxímetro</li>
+            </ul>
+          </div>
+          <div class="p-5 rounded-xl border-2 border-slate-100 bg-white hover:border-slate-300 transition-all">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold uppercase tracking-wider text-slate-500">Módulo 3</span>
+              <span class="px-2 py-0.5 text-xs font-bold rounded bg-slate-100 text-slate-600">Planejado</span>
+            </div>
+            <h4 class="font-bold text-slate-900 text-base mb-2">Plataforma Profissional B2B</h4>
+            <ul class="text-xs text-slate-600 space-y-1.5 list-disc list-inside">
+              <li>Dashboard clínico para psicólogos e pneumologistas</li>
+              <li>Compartilhamento seguro de dados com consentimento</li>
+              <li>Acompanhamento de adesão e curva de abstinência</li>
+              <li>Canal de parceria com clínicas de dependência e SUS</li>
+              <li>Potencial de redução de sinistros em operadoras</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 2: Auditoria do One-Pager PDF -->
+    <div id="tab-onepager" class="tab-content hidden space-y-6">
+      <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-lg font-bold text-slate-900">Evidências e Dados Exclusivos do One-Pager (Anchor.pdf)</h3>
+          <span class="text-xs bg-slate-100 text-slate-600 px-2 py-1 rounded font-mono">1 Página A4 · Arquivo Oficial</span>
+        </div>
+        <p class="text-xs text-slate-600 mb-6">
+          O documento entregue à banca complementou a apresentação oral com dados de pesquisa bibliográfica e cronograma que respondem a várias dúvidas dos avaliadores:
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Coluna 1: Dados & Estudos -->
+          <div class="space-y-4">
+            <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+              <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Evidências Científicas Indexadas</h4>
+              <ul class="text-xs text-slate-700 space-y-2">
+                <li><strong>Bricker JB et al. (JAMA Intern Med, 2020):</strong> Eficácia de intervenções por app baseadas em Terapia de Aceitação e Compromisso.</li>
+                <li><strong>Garrison KA et al. (Nicotine Tob Res, 2020):</strong> Práticas breves de mindfulness via mobile para redução de fissura.</li>
+                <li><strong>Etter JF & Khazaal Y. (Addiction, 2022):</strong> Uso de aplicativos digitais com ferramentas de SOS (Stop-tabac).</li>
+                <li><strong>Caponnetto P et al. (Eur Respir J, 2011):</strong> Estudo clínico sobre inaladores mecânicos sem nicotina (PAIPO) para alívio do gesto motor.</li>
+              </ul>
+            </div>
+
+            <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+              <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Matriz de Concorrentes Citada</h4>
+              <table class="w-full text-xs text-left border-collapse">
+                <thead>
+                  <tr class="border-b border-slate-200 text-slate-500">
+                    <th class="py-1">Categoria</th>
+                    <th class="py-1">Players</th>
+                    <th class="py-1">Limitação / Gap</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100 text-slate-700">
+                  <tr>
+                    <td class="py-1.5 font-medium">Aplicativos</td>
+                    <td class="py-1.5">Smoke Free, Kwit</td>
+                    <td class="py-1.5">Não oferecem suporte ao gesto motor físico</td>
+                  </tr>
+                  <tr>
+                    <td class="py-1.5 font-medium">Dispositivos</td>
+                    <td class="py-1.5">FÜM, Capnos</td>
+                    <td class="py-1.5">Isolados, caros, sem ecossistema digital no BR</td>
+                  </tr>
+                  <tr>
+                    <td class="py-1.5 font-medium">Saúde Pública</td>
+                    <td class="py-1.5">SUS / Consultórios</td>
+                    <td class="py-1.5">Acesso lento; não acompanham no momento da fissura</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Coluna 2: Roadmap & Equipe -->
+          <div class="space-y-4">
+            <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+              <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Roadmap Formal de Entrega (2026–2027)</h4>
+              <div class="space-y-2 text-xs text-slate-700">
+                <div class="flex items-start space-x-2">
+                  <span class="px-2 py-0.5 rounded bg-blue-100 text-blue-800 font-mono text-[10px] font-bold">NOV/26</span>
+                  <span>Landing page institucional e protocolo do estudo piloto no Comitê de Ética (CEP).</span>
+                </div>
+                <div class="flex items-start space-x-2">
+                  <span class="px-2 py-0.5 rounded bg-blue-100 text-blue-800 font-mono text-[10px] font-bold">DEZ/26</span>
+                  <span>Lançamento do SOS em um toque no app e testes integrados via WhatsApp.</span>
+                </div>
+                <div class="flex items-start space-x-2">
+                  <span class="px-2 py-0.5 rounded bg-indigo-100 text-indigo-800 font-mono text-[10px] font-bold">DEZ/26–MAR/27</span>
+                  <span>Coleta de dados do estudo piloto com fumantes adultos (14 dias de uso).</span>
+                </div>
+                <div class="flex items-start space-x-2">
+                  <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-mono text-[10px] font-bold">2027</span>
+                  <span>Desenvolvimento da Geração 1 mecânica do inalador e submissão ao edital PIBITI.</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+              <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Equipe Societária (PUCPR Curitiba)</h4>
+              <div class="space-y-2 text-xs text-slate-700">
+                <div>
+                  <strong>Lilian Lima Waszak:</strong> Estudante de Psicologia (4º período) e Bacharel em Direito (advogada). Responsável pela coordenação geral e produto.
+                </div>
+                <div>
+                  <strong>Izabela Lourenço Pereira da Silveira:</strong> Estudante de Psicologia (4º período). Foco em protocolos de intervenção comportamental.
+                </div>
+                <div>
+                  <strong>Victória Carnauba de Alcantara Pinto:</strong> Estudante de Psicologia (4º período). Foco em usabilidade e testes qualitativos.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 3: Scorecard PIBEP & Recomendações -->
+    <div id="tab-scorecard" class="tab-content hidden space-y-6">
+      
+      <!-- Scorecard Matrix -->
+      <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+        <h3 class="text-lg font-bold text-slate-900 mb-4">Avaliação Técnica nos 5 Critérios Oficiais do PIBEP</h3>
+        <div class="space-y-4">
+          
+          <div>
+            <div class="flex justify-between items-center text-xs font-semibold mb-1">
+              <span>1. Definição do Problema e Dor de Mercado</span>
+              <span class="text-emerald-700 font-bold">Excelente (9.5/10)</span>
+            </div>
+            <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
+              <div class="bg-emerald-500 h-full rounded-full" style="width: 95%"></div>
+            </div>
+            <p class="text-[11px] text-slate-500 mt-1">Abertura humana com a persona Mariana, sustentada por dados sólidos da PNS/IBGE e custos do INCA.</p>
+          </div>
+
+          <div>
+            <div class="flex justify-between items-center text-xs font-semibold mb-1">
+              <span>2. Nível de Validação e Estágio do MVP</span>
+              <span class="text-blue-700 font-bold">Bom com Risco de Hardware (8.0/10)</span>
+            </div>
+            <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
+              <div class="bg-blue-500 h-full rounded-full" style="width: 80%"></div>
+            </div>
+            <p class="text-[11px] text-slate-500 mt-1">MVP digital navegável pronto e teste de manuseio com 14 pessoas realizado; falta rodar o piloto de eficácia.</p>
+          </div>
+
+          <div>
+            <div class="flex justify-between items-center text-xs font-semibold mb-1">
+              <span>3. Modelo de Negócios e Viabilidade Comercial</span>
+              <span class="text-amber-700 font-bold">Em Ajuste (7.5/10)</span>
+            </div>
+            <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
+              <div class="bg-amber-500 h-full rounded-full" style="width: 75%"></div>
+            </div>
+            <p class="text-[11px] text-slate-500 mt-1">Preço B2C definido, mas a banca pontuou que o B2B (clínicas e operadoras) pode ter CAC muito menor e maior LTV.</p>
+          </div>
+
+          <div>
+            <div class="flex justify-between items-center text-xs font-semibold mb-1">
+              <span>4. Gestão Financeira & Alocação do Micro Seed</span>
+              <span class="text-blue-700 font-bold">Consistente (8.5/10)</span>
+            </div>
+            <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
+              <div class="bg-blue-500 h-full rounded-full" style="width: 85%"></div>
+            </div>
+            <p class="text-[11px] text-slate-500 mt-1">Recursos bem alocados em prototipagem 3D e identidade visual, com plano claro para buscar fomento tecnológico (PIBITI).</p>
+          </div>
+
+          <div>
+            <div class="flex justify-between items-center text-xs font-semibold mb-1">
+              <span>5. Postura da Equipe e Qualidade do Pitch</span>
+              <span class="text-emerald-700 font-bold">Muito Boa (8.5/10)</span>
+            </div>
+            <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
+              <div class="bg-emerald-500 h-full rounded-full" style="width: 85%"></div>
+            </div>
+            <p class="text-[11px] text-slate-500 mt-1">Evolução gigantesca desde a banca prévia; oratória firme e domínio das referências técnicas na réplica.</p>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Delta Evolution Card -->
+      <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+        <h3 class="text-lg font-bold text-slate-900 mb-3">Delta de Evolução: Banca Prévia (07/10) vs. Demoday (28/10)</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+          <div class="p-4 bg-rose-50 rounded-xl border border-rose-100">
+            <span class="font-bold text-rose-800 uppercase block mb-1">Apontamentos na Banca Prévia (07/10)</span>
+            <ul class="space-y-1 text-slate-600 list-disc list-inside">
+              <li>"Fuzilamento de ideias" com fala excessivamente acelerada.</li>
+              <li>Falta de foco cirúrgico: dissipando energia entre app e hardware.</li>
+              <li>Ausência de clareza se o valor residia no app ou no inalador.</li>
+            </ul>
+          </div>
+          <div class="p-4 bg-emerald-50 rounded-xl border border-emerald-100">
+            <span class="font-bold text-emerald-800 uppercase block mb-1">Ajustes Comprovados no Demoday (28/10)</span>
+            <ul class="space-y-1 text-slate-600 list-disc list-inside">
+              <li>Introdução da persona "Mariana" criando conexão empática imediata.</li>
+              <li>Apresentação física do protótipo 3D e do filtro na câmera.</li>
+              <li>One-Pager impecável com bibliografia médica de alto impacto.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Interactive Script -->
+  <script>
+    // Tab Switching Logic
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetId = btn.getAttribute('data-tab');
+
+        // Update Buttons UI
+        tabBtns.forEach(b => {
+          b.classList.remove('border-blue-600', 'text-blue-600');
+          b.classList.add('border-transparent', 'text-slate-500');
+        });
+        btn.classList.add('border-blue-600', 'text-blue-600');
+        btn.classList.remove('border-transparent', 'text-slate-500');
+
+        // Update Contents UI
+        tabContents.forEach(content => {
+          if (content.id === targetId) {
+            content.classList.remove('hidden');
+          } else {
+            content.classList.add('hidden');
+          }
+        });
+      });
+    });
+
+    // Print Button
+    const printBtn = document.getElementById('btnPrint');
+    if (printBtn) {
+      printBtn.addEventListener('click', () => {
+        window.print();
+      });
+    }
+  </script>
+</body>
+</html>

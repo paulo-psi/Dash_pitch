@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Executivo & Devolutiva da Banca — PlantonIQ | PIBEP PUCPR 2026</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    @media print {
+      .no-print { display: none !important; }
+      .tab-content { display: block !important; }
+      body { background: white; color: black; }
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen">
+
+  <!-- Top Header / Navigation Bar -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+      <div class="flex items-center space-x-3">
+        <!-- Global Hub & Team Switcher Bar -->
+        <div class="flex items-center space-x-2 mr-3 no-print">
+          <a href="../index.html" class="inline-flex items-center px-2.5 py-1 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg border border-slate-200 transition-colors">
+            <svg class="w-3.5 h-3.5 mr-1 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+            Hub
+          </a>
+          <select id="teamSelector" onchange="if(this.value) window.location.href=this.value" class="text-xs bg-slate-50 hover:bg-slate-100 border border-slate-300 rounded-lg px-2.5 py-1 font-semibold text-slate-800 cursor-pointer focus:ring-2 focus:ring-blue-500">
+              <option value="dashboard_01_anchor.html">01. Anchor</option>
+              <option value="dashboard_02_integremente.html">02. IntegreMente</option>
+              <option value="dashboard_03_norman.html">03. Norman</option>
+              <option value="dashboard_04_nock.html">04. Nock</option>
+              <option value="dashboard_05_manka.html">05. Manka</option>
+              <option value="dashboard_06_kaden.html">06. Kaden</option>
+              <option value="dashboard_07_plantoniq.html" selected>07. PlantonIQ</option>
+              <option value="dashboard_08_recoup.html">08. Recoup IA</option>
+          </select>
+        </div>
+
+          <span class="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-teal-600 text-white font-bold text-lg shadow-sm">
+            07
+          </span>
+          <div>
+            <div class="flex items-center space-x-2">
+              <h1 class="text-xl font-bold text-slate-900">PlantonIQ</h1>
+              <span class="px-2.5 py-0.5 text-xs font-semibold rounded-full bg-teal-100 text-teal-800 border border-teal-200">
+                Healthtech / Marketplace B2B2C
+              </span>
+              <span class="px-2.5 py-0.5 text-xs font-medium rounded-full bg-blue-50 text-blue-700 border border-blue-200">
+                Demoday PIBEP 2026
+              </span>
+            </div>
+            <p class="text-xs text-slate-500">Relatório Oficial de Avaliação & Devolutiva da Banca · 28/10/2026</p>
+          </div>
+        </div>
+
+        <!-- Quick Actions & Links -->
+        <div class="flex items-center space-x-2 no-print">
+          <a href="../assets/pdfs/PlantonIQ.pdf" target="_blank" rel="noopener noreferrer" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-3 py-1.5 text-xs font-medium rounded-lg text-slate-700 bg-slate-100 hover:bg-slate-200 transition-colors border border-slate-200">
+            <svg class="w-3.5 h-3.5 mr-1.5 text-rose-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-9.5 8.5h3v1.5h-3v-1.5zm0-3h3V10h-3V8.5zm5 6h-8V7h8v7.5z"/></svg>
+            One-Pager PDF
+          </a>
+          <a href="https://drive.google.com/file/d/1iWYQ_C8i_1igHPQ1S27FNbRXwH_h4UGM/view?usp=drivesdk" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-3 py-1.5 text-xs font-medium rounded-lg text-blue-700 bg-blue-50 hover:bg-blue-100 transition-colors border border-blue-200">
+            <svg class="w-3.5 h-3.5 mr-1.5 text-blue-600" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            Vídeo (01:26:50)
+          </a>
+          <button id="btnPrint" class="inline-flex items-center px-3 py-1.5 text-xs font-medium rounded-lg text-slate-700 bg-white hover:bg-slate-50 border border-slate-300 transition-colors">
+            <svg class="w-3.5 h-3.5 mr-1.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+            Exportar / Imprimir
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Startup Hero Header -->
+  <div class="bg-gradient-to-r from-slate-900 via-teal-950 to-cyan-950 text-white py-6 border-b border-teal-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div>
+          <span class="inline-block text-xs uppercase tracking-wider font-semibold text-teal-400 mb-1">
+            "Saúde • Tecnologia • Conexão de Plantões · Conectando profissionais a quem precisa"
+          </span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight">
+            PlantonIQ — Marketplace Geolocalizado de Enfermagem
+          </h2>
+          <p class="mt-1 text-sm text-slate-300 max-w-3xl">
+            Plataforma digital especializada que conecta familiares de pacientes dependentes e empresas de home care a profissionais de enfermagem qualificados (Auxiliares, Técnicos e Enfermeiros), garantindo cobertura ágil, segura e sem furos de escala.
+          </p>
+        </div>
+        <div class="flex items-center space-x-3 self-start md:self-center bg-white/10 backdrop-blur-md px-4 py-2.5 rounded-xl border border-white/10">
+          <div class="text-right">
+            <div class="text-xs text-slate-300">Tempo de Apresentação</div>
+            <div class="text-sm font-bold text-white font-mono">01:26:50 – 01:36:15</div>
+          </div>
+          <div class="h-8 w-px bg-white/20"></div>
+          <div>
+            <div class="text-xs text-slate-300">Apresentadora</div>
+            <div class="text-sm font-bold text-teal-300">Lorandi (Enfermeira)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notice Banner for the Team -->
+  <div class="bg-teal-700 text-white text-xs py-2.5 px-4 shadow-inner">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <div class="flex items-center space-x-2">
+        <svg class="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/></svg>
+        <span><strong>Documento de Devolutiva Oficial:</strong> Este dashboard compila o feedback detalhado da banca examinadora (destaque para os alertas sobre o "Efeito Goleiro de Aluguel" e triagem de cuidadores) para orientar a equipe PlantonIQ nas mentorias do PIBEP.</span>
+      </div>
+      <span class="hidden md:inline font-mono font-medium">Banca Fechada · PIBEP 16</span>
+    </div>
+  </div>
+
+  <!-- Main Container -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+    <!-- KPI Summary Grid -->
+    <section class="grid grid-cols-2 md:grid-cols-5 gap-4">
+      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm hover:border-teal-400 transition-all">
+        <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Demanda Nacional</div>
+        <div class="mt-1 text-2xl font-bold text-teal-700">3,5 Milhões</div>
+        <div class="text-xs text-slate-500 mt-1">Brasileiros em home care</div>
+      </div>
+      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm hover:border-teal-400 transition-all">
+        <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Volume de Mercado</div>
+        <div class="mt-1 text-2xl font-bold text-slate-900">R$ 30 bi/ano</div>
+        <div class="text-xs text-slate-500 mt-1">Gastos em assistência domiciliar</div>
+      </div>
+      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm hover:border-teal-400 transition-all">
+        <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Pesquisa de Campo</div>
+        <div class="mt-1 text-2xl font-bold text-blue-600">67 Entrevistas</div>
+        <div class="text-xs text-slate-500 mt-1">90% dos gestores querem piloto</div>
+      </div>
+      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm hover:border-teal-400 transition-all">
+        <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Modelo Comercial</div>
+        <div class="mt-1 text-lg font-bold text-indigo-600">SaaS + 20%</div>
+        <div class="text-xs text-slate-500 mt-1">Take rate por plantão executado</div>
+      </div>
+      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm hover:border-teal-400 transition-all col-span-2 md:col-span-1">
+        <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Status nas Lojas</div>
+        <div class="mt-1 text-xl font-bold text-emerald-600">No Ar (Web/App)</div>
+        <div class="text-xs text-slate-500 mt-1">plantoniq.com aprovado</div>
+      </div>
+    </section>
+
+    <!-- Interactive Navigation Tabs -->
+    <div class="border-b border-slate-200 no-print">
+      <nav class="flex space-x-6 overflow-x-auto" aria-label="Tabs">
+        <button class="tab-btn pb-3 px-1 border-b-2 font-semibold text-sm border-teal-600 text-teal-600 transition-colors whitespace-nowrap" data-tab="tab-banca">
+          ★ Devolutiva da Banca (Arguição & Efeito Goleiro)
+        </button>
+        <button class="tab-btn pb-3 px-1 border-b-2 font-semibold text-sm border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300 transition-colors whitespace-nowrap" data-tab="tab-pitch">
+          1. Resumo do Pitch & A Dor de "D. Maria e Ana"
+        </button>
+        <button class="tab-btn pb-3 px-1 border-b-2 font-semibold text-sm border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300 transition-colors whitespace-nowrap" data-tab="tab-onepager">
+          2. Dados do One-Pager PDF & Modelo 20%
+        </button>
+        <button class="tab-btn pb-3 px-1 border-b-2 font-semibold text-sm border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300 transition-colors whitespace-nowrap" data-tab="tab-scorecard">
+          3. Scorecard PIBEP & Recomendações
+        </button>
+      </nav>
+    </div>
+
+    <!-- TAB: Devolutiva da Banca (DESTAQUE MÁXIMO) -->
+    <div id="tab-banca" class="tab-content space-y-6">
+      
+      <!-- Executive Summary of Board's Sentiment -->
+      <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+        <div class="flex items-center justify-between mb-3">
+          <h3 class="text-lg font-bold text-slate-900 flex items-center">
+            <span class="w-3 h-3 rounded-full bg-teal-600 mr-2"></span>
+            Diagnóstico Geral da Banca Examinadora
+          </h3>
+          <span class="px-2.5 py-1 text-xs font-semibold rounded-md bg-teal-50 text-teal-700 border border-teal-200">
+            Recepção: Empatia com a Causa & Alerta de Desintermediação
+          </span>
+        </div>
+        <p class="text-xs text-slate-600 leading-relaxed">
+          A banca validou fortemente a dor de famílias que cuidam de entes acamados (Bruno relatou a experiência dramática que viveu com a perda de sua própria avó e os furos de plantão). A apresentação de Lorandi foi técnica e acolhedora. No entanto, os jurados colocaram o dedo na ferida mais dolorosa dos marketplaces de serviços: <strong>o risco de perder os melhores profissionais em contratações diretas por fora</strong>:
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-4 text-xs">
+          <div class="p-3 bg-rose-50 border border-rose-200 rounded-xl text-rose-900">
+            <strong class="block mb-1 font-bold">1. O "Efeito Goleiro de Aluguel" (Bypass)</strong>
+            Liliane e Bruno alertaram: se uma família amar a enfermeira no primeiro plantão, vai propor pagar direto no PIX por fora para economizar a taxa. Como a PlantonIQ retém esse profissional na base?
+          </div>
+          <div class="p-3 bg-amber-50 border border-amber-200 rounded-xl text-amber-900">
+            <strong class="block mb-1 font-bold">2. Rigor Pericial na Triagem de Habilidade</strong>
+            Daucio e Gustavo cobraram: como garantir que o cuidador sabe manusear traqueostomia ou sonda enteral sem cometer negligência médica fatal que responsabilize juridicamente a plataforma?
+          </div>
+          <div class="p-3 bg-blue-50 border border-blue-200 rounded-xl text-blue-900">
+            <strong class="block mb-1 font-bold">3. Clareza de Quem Paga a Conta</strong>
+            Liliane pediu que a equipe verbalizasse com nitidez a divisão de receitas entre a família (B2C), o profissional autônomo e as empresas de home care/hospitais (B2B).
+          </div>
+        </div>
+      </div>
+
+      <!-- Detailed Juror Cards -->
+      <div class="space-y-4">
+        
+        <!-- JURADO 1: Bruno -->
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-100 pb-3 mb-4 gap-2">
+            <div class="flex items-center space-x-2">
+              <span class="w-8 h-8 rounded-lg bg-indigo-100 text-indigo-700 font-bold flex items-center justify-center text-xs">J1</span>
+              <div>
+                <h4 class="text-sm font-bold text-slate-900">Bruno</h4>
+                <p class="text-[11px] text-slate-500">Empreendedor de Mercado · Convidado Especial / SEMIC</p>
+              </div>
+            </div>
+            <span class="text-xs font-mono bg-slate-100 text-slate-600 px-2 py-1 rounded self-start sm:self-auto">
+              Timestamp no Vídeo: 01:33:05
+            </span>
+          </div>
+
+          <div class="space-y-3 text-xs leading-relaxed">
+            <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+              <div class="font-bold text-slate-800 mb-1 flex items-center">
+                <span class="w-2 h-2 rounded-full bg-teal-500 mr-1.5"></span>
+                Depoimento Pessoal Tocante sobre o Sofrimento Familiar:
+              </div>
+              <p class="text-slate-600 italic">
+                "Vou voltar a falar da minha nona. Ela faleceu há 2 anos e a gente passou por essa dor: tinha enfermeiro que não aparecia, teve acidente em que o profissional se machucou em casa e a minha nona ficou sozinha sem ninguém. A família teve que ir fazer... Nós que pagávamos a conta e encontrar algo assim seria fantástico para enxergar as habilidades de cada um. Tivemos conflito com a agência e ficamos sem enfermeiro. Vira um marketplace... como é a curadoria de fato? E tinham 3 enfermeiros que eu queria colocar numa redoma de ouro, especialíssimos, e eu não tinha onde recomendá-los."
+              </p>
+            </div>
+
+            <div class="p-3 bg-blue-50/50 rounded-xl border border-blue-200">
+              <div class="font-bold text-blue-900 mb-1 flex items-center">
+                <span class="w-2 h-2 rounded-full bg-blue-600 mr-1.5"></span>
+                Sugestão de Reputação e Avaliação Pública:
+              </div>
+              <p class="text-slate-700 italic mb-2">
+                "Incluam um sistema de feedback transparente de quem utilizou cada profissional para reforçar a qualificação e premiar os melhores cuidadores com mais visibilidade."
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- JURADO 2: O Alerta Crítico da Tréplica — O "Efeito Goleiro de Aluguel" -->
+        <div class="bg-white p-6 rounded-2xl border-2 border-rose-200 shadow-sm bg-rose-50/20">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-rose-100 pb-3 mb-4 gap-2">
+            <div class="flex items-center space-x-2">
+              <span class="w-8 h-8 rounded-lg bg-rose-100 text-rose-700 font-bold flex items-center justify-center text-xs">⚠️</span>
+              <div>
+                <h4 class="text-sm font-bold text-rose-950">Liliane & Bruno (Intervenção Conjunta na Tréplica)</h4>
+                <p class="text-[11px] text-rose-700">O Risco de Desintermediação (Bypass de Plataforma)</p>
+              </div>
+            </div>
+            <span class="text-xs font-mono bg-rose-100 text-rose-800 px-2 py-1 rounded self-start sm:self-auto">
+              Timestamp no Vídeo: 01:35:15 – 01:36:15
+            </span>
+          </div>
+
+          <div class="space-y-3 text-xs leading-relaxed">
+            <div class="p-3 bg-white rounded-xl border border-rose-200">
+              <div class="font-bold text-rose-900 mb-1 flex items-center">
+                <span class="w-2 h-2 rounded-full bg-rose-600 mr-1.5"></span>
+                O Alerta do "Goleiro de Aluguel" (Transcrição Literal):
+              </div>
+              <blockquote class="text-slate-800 italic my-2 p-3 bg-rose-50/50 rounded border-l-4 border-rose-500">
+                "Só cuida de uma coisa: a fidelização do profissional na plataforma. Acho que você já escutou falar da startup 'Goleiro de Aluguel'. Foi um boom, estourou para contratar goleiro de futebol de final de semana. Só que o goleiro jogava duas vezes com o time, a galera via que ele era bom, fechava por fora direto no WhatsApp e saía da plataforma! Se a família do Bruno gostar de você como enfermeira, eles vão falar: 'Pô, quanto você ganha lá? Eu pago R$ 1.000 e você só recebe R$ 800 porque a plataforma fica com R$ 200... Vamos fechar por fora por R$ 900?'. Aí você perde os melhores profissionais da base e fica só com quem não consegue fechar direto. Vocês têm que pensar em como amarrar essa fidelização!"
+              </blockquote>
+              <div class="text-[11px] text-rose-950 bg-white p-2 rounded-lg border border-rose-100 mt-2">
+                <strong>O Maior Desafio da PlantonIQ:</strong> Se a plataforma cobrar 20% do plantão sem oferecer seguro de responsabilidade civil, antecipação de recebíveis, prontuário eletrônico integrado ou benefícios previdenciários, o profissional bom e a família sempre vão combinar por fora a partir do segundo dia.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- JURADO 3: Daucio & Gustavo -->
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-100 pb-3 mb-4 gap-2">
+            <div class="flex items-center space-x-2">
+              <span class="w-8 h-8 rounded-lg bg-cyan-100 text-cyan-700 font-bold flex items-center justify-center text-xs">J3/J4</span>
+              <div>
+                <h4 class="text-sm font-bold text-slate-900">Daucio & Gustavo Russi</h4>
+                <p class="text-[11px] text-slate-500">Agência Curitiba & SEBRAE/PR</p>
+              </div>
+            </div>
+            <span class="text-xs font-mono bg-slate-100 text-slate-600 px-2 py-1 rounded self-start sm:self-auto">
+              Timestamp no Vídeo: 01:31:35 & 01:32:40
+            </span>
+          </div>
+
+          <div class="space-y-3 text-xs leading-relaxed">
+            <div class="p-3 bg-amber-50/50 rounded-xl border border-amber-200">
+              <div class="font-bold text-amber-900 mb-1 flex items-center">
+                <span class="w-2 h-2 rounded-full bg-amber-500 mr-1.5"></span>
+                Perguntas — Triagem de Habilidade & Disposição a Pagar:
+              </div>
+              <p class="text-slate-700 italic mb-2">
+                1. <em>"Como vocês vão acessar as enfermeiras e saber se elas têm qualidade efetiva mesmo? Vai ter teste prático ou diagnóstico?"</em> (Daucio)<br>
+                2. <em>"Nas 67 entrevistas, vocês perguntaram quanto as famílias e empresas estariam dispostas a pagar pela intermediação?"</em> (Gustavo)
+              </p>
+            </div>
+
+            <div class="p-3 bg-emerald-50 rounded-xl border border-emerald-200">
+              <div class="font-bold text-emerald-900 mb-1">Como a Equipe Respondeu na Réplica:</div>
+              <p class="text-emerald-950">
+                Lorandi explicou que a captação inclui checagem ativa no COREN, verificação de certidões negativas de antecedentes criminais e entrevista técnica para validar se o profissional é habilitado para procedimentos invasivos. Confirmou que a plataforma já opera no modelo onde o profissional não paga mensalidade, mas a plataforma retém 20% do valor do plantão realizado.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Action Items for the Team (O que fazer na mentoria) -->
+      <div class="bg-gradient-to-r from-teal-950 via-slate-900 to-indigo-950 text-white p-6 rounded-2xl shadow-md">
+        <h3 class="text-base font-bold text-white mb-2 flex items-center">
+          <svg class="w-5 h-5 mr-2 text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+          Plano de Trabalho Imediato para a Equipe PlantonIQ (Fase de Operação)
+        </h3>
+        <p class="text-xs text-teal-200 mb-4 leading-relaxed">
+          Com base na arguição da banca, estas são as quatro tarefas prioritárias para Alitheia, Victória, Fátima, Henrique e Lorandi levarem para a mentoria do SEBRAE/PUCPR:
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+          <div class="p-3 bg-white/10 rounded-xl border border-white/10">
+            <strong class="text-teal-300 block mb-1">1. Desenhar Mecanismos Anti-Bypass (Solução para o "Goleiro")</strong>
+            Criar benefícios exclusivos para quem mantém a transação dentro do app: (a) seguro de acidentes e responsabilidade profissional durante o plantão; (b) pagamento garantido em 24h sem risco de calote da família; (c) registro de ponto georreferenciado e prontuário digital assinado.
+          </div>
+          <div class="p-3 bg-white/10 rounded-xl border border-white/10">
+            <strong class="text-teal-300 block mb-1">2. Priorizar Clientes Corporativos B2B (Home Cares e Hospitais)</strong>
+            No B2B institucional, o risco de desintermediação é quase nulo (a clínica precisa de nota fiscal, escala formal e cobertura contratual de faltas). Focar nos 90% de gestores interessados para fechar contratos de gestão de absenteísmo.
+          </div>
+          <div class="p-3 bg-white/10 rounded-xl border border-white/10">
+            <strong class="text-teal-300 block mb-1">3. Protocolo Rigoroso de Triagem Técnica</strong>
+            Estruturar a validação de competências por procedimento: checar atestados de especialização em geriatria/pediatria e histórico do COREN para evitar colocar profissionais inexperientes em quadros de alta complexidade.
+          </div>
+          <div class="p-3 bg-white/10 rounded-xl border border-white/10">
+            <strong class="text-teal-300 block mb-1">4. Implementar Avaliação Mútua por Estrelas (Depoimento Bruno)</strong>
+            Liberar no app a avaliação mútua: a família avalia a pontualidade e carinho da enfermeira (criando a 'redoma de ouro' sugerida por Bruno), e a enfermeira avalia as condições de trabalho e respeito no domicílio.
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- TAB 1: Pitch & A Dor de "D. Maria e Ana" -->
+    <div id="tab-pitch" class="tab-content hidden space-y-6">
+      
+      <!-- Narrative & Hook Card -->
+      <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-lg font-bold text-slate-900 flex items-center">
+            <span class="w-2.5 h-2.5 rounded-full bg-teal-600 mr-2"></span>
+            A Narrativa da Persona: O Desespero do Furo de Plantão
+          </h3>
+          <span class="text-xs font-mono bg-slate-100 text-slate-600 px-2 py-1 rounded">
+            Timestamp: 01:26:50
+          </span>
+        </div>
+        <blockquote class="p-4 bg-slate-50 border-l-4 border-teal-500 text-slate-700 italic text-sm rounded-r-lg mb-4">
+          "Cerca de 3,5 milhões de brasileiros precisam de cuidados domiciliares, movimentando R$ 30 bilhões por ano. Mas cobrir plantões nem sempre é simples. Conheçam a Ana, que cuida de sua mãe acamada, D. Maria. Ela contratava profissionais por indicação verbal no WhatsApp. Num dia crítico, a cuidadora avisou em cima da hora que não iria. A Ana entrou em pânico, ligando desesperada para tentar achar alguém habilitado para banho no leito e troca de sonda. É aí que entra a PlantonIQ: um aplicativo inspirado em modelos de transporte como Uber e 99 que faz a conexão geolocalizada, rápida e segura."
+        </blockquote>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm mt-4">
+          <div class="p-3 bg-teal-50/50 rounded-xl border border-teal-100">
+            <div class="font-semibold text-teal-950 mb-1">Insegurança e Lentidão</div>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              O modelo tradicional de contratação domiciliar é 100% analógico e vulnerável a faltas súbitas sem qualquer substituto imediato.
+            </p>
+          </div>
+          <div class="p-3 bg-cyan-50/50 rounded-xl border border-cyan-100">
+            <div class="font-semibold text-cyan-950 mb-1">Match Inteligente</div>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Cruza em minutos a necessidade específica do paciente (sondas, curativo, higiene) com a especialidade habilitada do cuidador no raio geográfico mais próximo.
+            </p>
+          </div>
+          <div class="p-3 bg-indigo-50/50 rounded-xl border border-indigo-100">
+            <div class="font-semibold text-indigo-950 mb-1">Escalabilidade Tripla</div>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Atende tanto o particular (famílias B2C) quanto empresas de home care e hospitais privados (B2B) para cobrir absenteísmo de enfermagem.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Categories Grid -->
+      <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+        <h3 class="text-lg font-bold text-slate-900 mb-4">Categorias Profissionais e Níveis de Complexidade</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="p-4 rounded-xl border border-slate-200 bg-slate-50/50">
+            <div class="text-teal-600 font-bold text-xs uppercase mb-1">Nível 1</div>
+            <h4 class="font-bold text-slate-900 text-sm mb-1">Auxiliar de Enfermagem</h4>
+            <p class="text-xs text-slate-600">Cuidados de higiene, banho no leito, conforto físico, alimentação assistida e acompanhamento da rotina do paciente.</p>
+          </div>
+          <div class="p-4 rounded-xl border border-slate-200 bg-slate-50/50">
+            <div class="text-teal-600 font-bold text-xs uppercase mb-1">Nível 2</div>
+            <h4 class="font-bold text-slate-900 text-sm mb-1">Técnico de Enfermagem</h4>
+            <p class="text-xs text-slate-600">Administração de medicações orais e injetáveis, troca de curativos de média complexidade, verificação de sinais vitais e nebulizações.</p>
+          </div>
+          <div class="p-4 rounded-xl border border-slate-200 bg-slate-50/50">
+            <div class="text-teal-600 font-bold text-xs uppercase mb-1">Nível 3</div>
+            <h4 class="font-bold text-slate-900 text-sm mb-1">Enfermeiro Padrão</h4>
+            <p class="text-xs text-slate-600">Procedimentos invasivos de alta complexidade: sondagens nasogástricas/enterais, cateterismo vesical, cuidados paliativos e plano de cuidado.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 2: Dados do One-Pager PDF & Modelo 20% -->
+    <div id="tab-onepager" class="tab-content hidden space-y-6">
+      <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-lg font-bold text-slate-900">Evidências Oficiais do One-Pager (PlantonIQ.pdf)</h3>
+          <span class="text-xs bg-slate-100 text-slate-600 px-2 py-1 rounded font-mono">Material Entregue à Banca</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          
+          <!-- Modelo Comercial Detalhado -->
+          <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-3">
+            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Estrutura de Monetização Formalizada</h4>
+            
+            <div class="p-3 bg-white rounded-lg border border-teal-200 text-xs">
+              <span class="font-bold text-teal-800 block mb-1">1. Assinatura Mensal (SaaS)</span>
+              <p class="text-slate-600">Cobrada de familiares e operadoras de home care/hospitais para gerenciar escalas, registrar histórico e publicar demandas prioritárias.</p>
+            </div>
+
+            <div class="p-3 bg-white rounded-lg border border-blue-200 text-xs">
+              <span class="font-bold text-blue-800 block mb-1">2. Isenção Total de Mensalidade para Profissionais</span>
+              <p class="text-slate-600">Cuidadores e enfermeiros não pagam mensalidade para se cadastrar, destravar a oferta de profissionais e garantir ampla cobertura geográfica.</p>
+            </div>
+
+            <div class="p-3 bg-white rounded-lg border border-emerald-200 text-xs">
+              <span class="font-bold text-emerald-800 block mb-1">3. Taxa de 20% (Take Rate) por Plantão</span>
+              <p class="text-slate-600">Comissão de 20% sobre o valor financeiro de cada plantão intermediado e liquidado pela plataforma com garantia de recebimento.</p>
+            </div>
+          </div>
+
+          <!-- Equipe e Contatos -->
+          <div class="space-y-4">
+            <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+              <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Equipe Fundadora (PUCPR Curitiba)</h4>
+              <div class="space-y-1.5 text-xs text-slate-700">
+                <div><strong>Alitheia Karla da Silva (Lia):</strong> Bioética, Gestão e Inovação</div>
+                <div><strong>Victória Luzia Antunes Grothe:</strong> Enfermagem e Protocolos Clínicos</div>
+                <div><strong>Fátima Luciana Costa Luz:</strong> Enfermagem e Operações</div>
+                <div><strong>Henrique Pereira Sesse:</strong> Arquitetura de Software e Tecnologia</div>
+                <div><strong>Lorandi:</strong> Enfermeira e Porta-voz da Banca</div>
+              </div>
+            </div>
+
+            <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+              <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Canais Oficiais Registrados</h4>
+              <ul class="text-xs text-slate-700 space-y-1">
+                <li><strong>Site Oficial:</strong> <a href="https://plantoniq.com" target="_blank" class="text-teal-600 hover:underline">plantoniq.com</a></li>
+                <li><strong>Presença nas Lojas:</strong> Aplicativos publicados para iOS e Android</li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 3: Scorecard PIBEP & Recomendações -->
+    <div id="tab-scorecard" class="tab-content hidden space-y-6">
+      
+      <!-- Scorecard Matrix -->
+      <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+        <h3 class="text-lg font-bold text-slate-900 mb-4">Avaliação Técnica nos 5 Critérios Oficiais do PIBEP</h3>
+        <div class="space-y-4">
+          
+          <div>
+            <div class="flex justify-between items-center text-xs font-semibold mb-1">
+              <span>1. Definição do Problema e Dor de Mercado</span>
+              <span class="text-emerald-700 font-bold">Excepcional (9.5/10)</span>
+            </div>
+            <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
+              <div class="bg-emerald-500 h-full rounded-full" style="width: 95%"></div>
+            </div>
+            <p class="text-[11px] text-slate-500 mt-1">A dor do furo de plantão em home care é universal e crítica, movimentando mais de R$ 30 bilhões ao ano no Brasil.</p>
+          </div>
+
+          <div>
+            <div class="flex justify-between items-center text-xs font-semibold mb-1">
+              <span>2. Nível de Validação e Estágio do MVP</span>
+              <span class="text-emerald-700 font-bold">Muito Forte (9.0/10)</span>
+            </div>
+            <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
+              <div class="bg-emerald-500 h-full rounded-full" style="width: 90%"></div>
+            </div>
+            <p class="text-[11px] text-slate-500 mt-1">67 entrevistas estruturadas, 90% dos gestores querendo piloto e app já publicado na Apple Store e Google Play.</p>
+          </div>
+
+          <div>
+            <div class="flex justify-between items-center text-xs font-semibold mb-1">
+              <span>3. Modelo de Negócios e Viabilidade Comercial</span>
+              <span class="text-amber-700 font-bold">Bom com Risco de Bypass (7.5/10)</span>
+            </div>
+            <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
+              <div class="bg-amber-500 h-full rounded-full" style="width: 75%"></div>
+            </div>
+            <p class="text-[11px] text-slate-500 mt-1">O take rate de 20% é saudável, mas a equipe precisa criar amarras contra a desintermediação alertada por Bruno e Liliane.</p>
+          </div>
+
+          <div>
+            <div class="flex justify-between items-center text-xs font-semibold mb-1">
+              <span>4. Gestão Financeira & Alocação do Micro Seed</span>
+              <span class="text-blue-700 font-bold">Boa (8.0/10)</span>
+            </div>
+            <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
+              <div class="bg-blue-500 h-full rounded-full" style="width: 80%"></div>
+            </div>
+            <p class="text-[11px] text-slate-500 mt-1">Aportes bem aplicados em tecnologia e publicação nas lojas de aplicativos; próximo foco em aquisição de clientes pagantes.</p>
+          </div>
+
+          <div>
+            <div class="flex justify-between items-center text-xs font-semibold mb-1">
+              <span>5. Postura da Equipe e Qualidade do Pitch</span>
+              <span class="text-emerald-700 font-bold">Muito Boa (8.5/10)</span>
+            </div>
+            <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
+              <div class="bg-emerald-500 h-full rounded-full" style="width: 85%"></div>
+            </div>
+            <p class="text-[11px] text-slate-500 mt-1">Lorandi demonstrou autoridade técnica de enfermagem e respondeu com serenidade às dúvidas regulatórias.</p>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Delta Evolution Card -->
+      <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+        <h3 class="text-lg font-bold text-slate-900 mb-3">Delta de Evolução: Banca Prévia (07/10) vs. Demoday (28/10)</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+          <div class="p-4 bg-rose-50 rounded-xl border border-rose-100">
+            <span class="font-bold text-rose-800 uppercase block mb-1">Apontamentos na Banca Prévia (07/10)</span>
+            <ul class="space-y-1 text-slate-600 list-disc list-inside">
+              <li>Modelo de monetização ainda obscuro e sem taxa definida.</li>
+              <li>Falta de resposta clara perante concorrentes como a Click Nurse.</li>
+              <li>Recomendação de validação mais rápida com MVP de concierge.</li>
+            </ul>
+          </div>
+          <div class="p-4 bg-emerald-50 rounded-xl border border-emerald-100">
+            <span class="font-bold text-emerald-800 uppercase block mb-1">Ajustes Comprovados no Demoday (28/10)</span>
+            <ul class="space-y-1 text-slate-600 list-disc list-inside">
+              <li>Definição formal do modelo: SaaS mensal + 20% de take rate por plantão.</li>
+              <li>Métricas consistentes de pesquisa com 67 indivíduos e 90% de intenção de gestores.</li>
+              <li>Demonstração de aplicativo mobile já publicado e no ar.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Interactive Script -->
+  <script>
+    // Tab Switching Logic
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetId = btn.getAttribute('data-tab');
+
+        // Update Buttons UI
+        tabBtns.forEach(b => {
+          b.classList.remove('border-teal-600', 'text-teal-600');
+          b.classList.add('border-transparent', 'text-slate-500');
+        });
+        btn.classList.add('border-teal-600', 'text-teal-600');
+        btn.classList.remove('border-transparent', 'text-slate-500');
+
+        // Update Contents UI
+        tabContents.forEach(content => {
+          if (content.id === targetId) {
+            content.classList.remove('hidden');
+          } else {
+            content.classList.add('hidden');
+          }
+        });
+      });
+    });
+
+    // Print Button
+    const printBtn = document.getElementById('btnPrint');
+    if (printBtn) {
+      printBtn.addEventListener('click', () => {
+        window.print();
+      });
+    }
+  </script>
+</body>
+</html>

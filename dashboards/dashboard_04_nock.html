@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Executivo & Devolutiva da Banca — Nock | PIBEP PUCPR 2026</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    @media print {
+      .no-print { display: none !important; }
+      .tab-content { display: block !important; }
+      body { background: white; color: black; }
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen">
+
+  <!-- Top Header / Navigation Bar -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+      <div class="flex items-center space-x-3">
+        <!-- Global Hub & Team Switcher Bar -->
+        <div class="flex items-center space-x-2 mr-3 no-print">
+          <a href="../index.html" class="inline-flex items-center px-2.5 py-1 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg border border-slate-200 transition-colors">
+            <svg class="w-3.5 h-3.5 mr-1 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+            Hub
+          </a>
+          <select id="teamSelector" onchange="if(this.value) window.location.href=this.value" class="text-xs bg-slate-50 hover:bg-slate-100 border border-slate-300 rounded-lg px-2.5 py-1 font-semibold text-slate-800 cursor-pointer focus:ring-2 focus:ring-blue-500">
+              <option value="dashboard_01_anchor.html">01. Anchor</option>
+              <option value="dashboard_02_integremente.html">02. IntegreMente</option>
+              <option value="dashboard_03_norman.html">03. Norman</option>
+              <option value="dashboard_04_nock.html" selected>04. Nock</option>
+              <option value="dashboard_05_manka.html">05. Manka</option>
+              <option value="dashboard_06_kaden.html">06. Kaden</option>
+              <option value="dashboard_07_plantoniq.html">07. PlantonIQ</option>
+              <option value="dashboard_08_recoup.html">08. Recoup IA</option>
+          </select>
+        </div>
+
+          <span class="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-blue-600 text-white font-bold text-lg shadow-sm">
+            04
+          </span>
+          <div>
+            <div class="flex items-center space-x-2">
+              <h1 class="text-xl font-bold text-slate-900">Nock</h1>
+              <span class="px-2.5 py-0.5 text-xs font-semibold rounded-full bg-blue-100 text-blue-800 border border-blue-200">
+                SalesTech / AI B2B
+              </span>
+              <span class="px-2.5 py-0.5 text-xs font-medium rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
+                Demoday PIBEP 2026
+              </span>
+            </div>
+            <p class="text-xs text-slate-500">Relatório Oficial de Avaliação & Devolutiva da Banca · 28/10/2026</p>
+          </div>
+        </div>
+
+        <!-- Quick Actions & Links -->
+        <div class="flex items-center space-x-2 no-print">
+          <a href="../assets/pdfs/Nock.pdf" target="_blank" rel="noopener noreferrer" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-3 py-1.5 text-xs font-medium rounded-lg text-slate-700 bg-slate-100 hover:bg-slate-200 transition-colors border border-slate-200">
+            <svg class="w-3.5 h-3.5 mr-1.5 text-rose-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-9.5 8.5h3v1.5h-3v-1.5zm0-3h3V10h-3V8.5zm5 6h-8V7h8v7.5z"/></svg>
+            One-Pager PDF
+          </a>
+          <a href="https://drive.google.com/file/d/1iWYQ_C8i_1igHPQ1S27FNbRXwH_h4UGM/view?usp=drivesdk" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-3 py-1.5 text-xs font-medium rounded-lg text-blue-700 bg-blue-50 hover:bg-blue-100 transition-colors border border-blue-200">
+            <svg class="w-3.5 h-3.5 mr-1.5 text-blue-600" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            Vídeo (00:55:00)
+          </a>
+          <button id="btnPrint" class="inline-flex items-center px-3 py-1.5 text-xs font-medium rounded-lg text-slate-700 bg-white hover:bg-slate-50 border border-slate-300 transition-colors">
+            <svg class="w-3.5 h-3.5 mr-1.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+            Exportar / Imprimir
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Startup Hero Header -->
+  <div class="bg-gradient-to-r from-slate-900 via-blue-950 to-indigo-950 text-white py-6 border-b border-blue-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div>
+          <span class="inline-block text-xs uppercase tracking-wider font-semibold text-blue-400 mb-1">
+            "Menos pesquisa. Mais tempo para vender"
+          </span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight">
+            Nock — Inteligência de Vendas B2B & Prospecção Agêntica
+          </h2>
+          <p class="mt-1 text-sm text-slate-300 max-w-3xl">
+            Plataforma agêntica nativa em IA especializada no mercado brasileiro: identifica o ICP ideal, monitora sinais de compra (contratações, funding, concorrência) e automatiza cadências outbound multicanal (LinkedIn + Gmail).
+          </p>
+        </div>
+        <div class="flex items-center space-x-3 self-start md:self-center bg-white/10 backdrop-blur-md px-4 py-2.5 rounded-xl border border-white/10">
+          <div class="text-right">
+            <div class="text-xs text-slate-300">Tempo de Apresentação</div>
+            <div class="text-sm font-bold text-white font-mono">00:55:00 – 01:03:55</div>
+          </div>
+          <div class="h-8 w-px bg-white/20"></div>
+          <div>
+            <div class="text-xs text-slate-300">Apresentador</div>
+            <div class="text-sm font-bold text-blue-300">Gabriel Henrique do Carmo</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notice Banner for the Team -->
+  <div class="bg-blue-600 text-white text-xs py-2.5 px-4 shadow-inner">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <div class="flex items-center space-x-2">
+        <svg class="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/></svg>
+        <span><strong>Documento de Devolutiva Oficial:</strong> Este dashboard consolida as avaliações dos 4 jurados no Demoday, destacando os elogios à postura comercial de palco e os pontos de refinamento para a escala corporativa da Nock na Fase de Operação.</span>
+      </div>
+      <span class="hidden md:inline font-mono font-medium">Banca Fechada · PIBEP 16</span>
+    </div>
+  </div>
+
+  <!-- Main Container -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+    <!-- KPI Summary Grid -->
+    <section class="grid grid-cols-2 md:grid-cols-5 gap-4">
+      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm hover:border-blue-400 transition-all">
+        <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Clientes Pagantes</div>
+        <div class="mt-1 text-2xl font-bold text-emerald-600">7 ativas</div>
+        <div class="text-xs text-slate-500 mt-1">Gupy, Salvy, KVO, Hold, etc.</div>
+      </div>
+      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm hover:border-blue-400 transition-all">
+        <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Receita Recorrente</div>
+        <div class="mt-1 text-2xl font-bold text-slate-900">MRR &gt; R$ 2k</div>
+        <div class="text-xs text-slate-500 mt-1">Ticket inicial: R$ 299/mês</div>
+      </div>
+      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm hover:border-blue-400 transition-all">
+        <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Impacto em Clientes</div>
+        <div class="mt-1 text-2xl font-bold text-blue-600">126 vendas</div>
+        <div class="text-xs text-slate-500 mt-1">Fechadas pela Salvy via Nock</div>
+      </div>
+      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm hover:border-blue-400 transition-all">
+        <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Margem Bruta</div>
+        <div class="mt-1 text-lg font-bold text-teal-600">~35%</div>
+        <div class="text-xs text-slate-500 mt-1">Créditos Anthropic ativados</div>
+      </div>
+      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm hover:border-blue-400 transition-all col-span-2 md:col-span-1">
+        <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Tração Orgânica</div>
+        <div class="mt-1 text-xl font-bold text-indigo-600">100+ cad./dia</div>
+        <div class="text-xs text-slate-500 mt-1">Pico registrado em 27/10</div>
+      </div>
+    </section>
+
+    <!-- Interactive Navigation Tabs -->
+    <div class="border-b border-slate-200 no-print">
+      <nav class="flex space-x-6 overflow-x-auto" aria-label="Tabs">
+        <button class="tab-btn pb-3 px-1 border-b-2 font-semibold text-sm border-blue-600 text-blue-600 transition-colors whitespace-nowrap" data-tab="tab-banca">
+          ★ Devolutiva da Banca (Arguição & Elogios)
+        </button>
+        <button class="tab-btn pb-3 px-1 border-b-2 font-semibold text-sm border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300 transition-colors whitespace-nowrap" data-tab="tab-pitch">
+          1. Resumo do Pitch & Métricas Comerciais
+        </button>
+        <button class="tab-btn pb-3 px-1 border-b-2 font-semibold text-sm border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300 transition-colors whitespace-nowrap" data-tab="tab-onepager">
+          2. Credenciais do One-Pager PDF
+        </button>
+        <button class="tab-btn pb-3 px-1 border-b-2 font-semibold text-sm border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300 transition-colors whitespace-nowrap" data-tab="tab-scorecard">
+          3. Scorecard PIBEP & Recomendações
+        </button>
+      </nav>
+    </div>
+
+    <!-- TAB: Devolutiva da Banca (DESTAQUE MÁXIMO) -->
+    <div id="tab-banca" class="tab-content space-y-6">
+      
+      <!-- Executive Summary of Board's Sentiment -->
+      <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+        <div class="flex items-center justify-between mb-3">
+          <h3 class="text-lg font-bold text-slate-900 flex items-center">
+            <span class="w-3 h-3 rounded-full bg-blue-600 mr-2"></span>
+            Diagnóstico Geral da Banca Examinadora
+          </h3>
+          <span class="px-2.5 py-1 text-xs font-semibold rounded-md bg-emerald-50 text-emerald-700 border border-emerald-200">
+            Recepção: Apresentação Mais Elogiada da Banca Fechada
+          </span>
+        </div>
+        <p class="text-xs text-slate-600 leading-relaxed">
+          A Nock realizou a apresentação de <strong>maior impacto comercial e persuasivo</strong> do Demoday. O contraste com a banca prévia (onde o pitch havia sido criticado como "acadêmico, monótono e sem alma de vendas") foi espetacular: Gabriel demonstrou oratória vibrante, dados reais de faturamento e casos de sucesso concretos (Gupy e Salvy). Os jurados trouxeram elogios enfáticos e três provocações de alto nível para refinar a oferta comercial:
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-4 text-xs">
+          <div class="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-900">
+            <strong class="block mb-1 font-bold">1. Perfil "Fundador que Vende" (Daucio)</strong>
+            Daucio (Agência Curitiba) enfatizou que fundos investem em <em>pessoas</em> e não apenas em código. A postura de vendas de Gabriel foi apontada como o ativo mais valioso para a empresa buscar captação de investimento.
+          </div>
+          <div class="p-3 bg-blue-50 border border-blue-200 rounded-xl text-blue-900">
+            <strong class="block mb-1 font-bold">2. Feature de Ouro: Filtro por Raio Geográfico (Bruno)</strong>
+            Bruno compartilhou a dor real de sua própria empresa ao expandir para novos estados, sugerindo incorporar uma busca territorial por raio no mapa para enriquecer leads locais instantaneamente.
+          </div>
+          <div class="p-3 bg-amber-50 border border-amber-200 rounded-xl text-amber-900">
+            <strong class="block mb-1 font-bold">3. Compliance LGPD & Margem Operacional (Liliane)</strong>
+            A banca checou a origem da matéria-prima de dados (privacidade) e a mecânica de cobrança por créditos para garantir que grandes clientes corporativos não corroam a margem bruta de 35%.
+          </div>
+        </div>
+      </div>
+
+      <!-- Detailed Juror Cards -->
+      <div class="space-y-4">
+        
+        <!-- JURADO 1: Daucio (O Grande Reconhecimento) -->
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-100 pb-3 mb-4 gap-2">
+            <div class="flex items-center space-x-2">
+              <span class="w-8 h-8 rounded-lg bg-cyan-100 text-cyan-700 font-bold flex items-center justify-center text-xs">J1</span>
+              <div>
+                <h4 class="text-sm font-bold text-slate-900">Daucio</h4>
+                <p class="text-[11px] text-slate-500">Agência Curitiba de Desenvolvimento S/A · Vale do Pinhão</p>
+              </div>
+            </div>
+            <span class="text-xs font-mono bg-slate-100 text-slate-600 px-2 py-1 rounded self-start sm:self-auto">
+              Timestamp no Vídeo: 01:01:15
+            </span>
+          </div>
+
+          <div class="space-y-3 text-xs leading-relaxed">
+            <div class="p-4 bg-emerald-50 rounded-xl border border-emerald-200">
+              <div class="font-bold text-emerald-900 mb-1 flex items-center">
+                <span class="w-2 h-2 rounded-full bg-emerald-600 mr-1.5"></span>
+                Elogio Enfático de Mercado (Transcrição Literal):
+              </div>
+              <blockquote class="text-slate-800 italic my-2 p-3 bg-white/80 rounded border-l-4 border-emerald-500">
+                "Parabéns pela tua apresentação! Eu estava quase assinando a plataforma... Se quiser, vamos conversar depois! Trabalho lá na Agência Curitiba e a gente lida com investidores e fundos, e todos eles falam a mesma coisa: 'A gente não investe em empresa, a gente investe nas pessoas'. Palavras daqueles milionários. Cara, parabéns pela tua postura! Um vendedor de mão cheia! A tecnologia ajuda, mas a venda é isso que você fez aqui. Teve uma postura muito legal e é isso que leva a empresa longe. Pensa: a tecnologia é o meio, a empresa são vocês. Então não deixem de investir em vocês também. Gabriel, show de bola, teu pitch foi muito bem preparado, ensaiou centenas de vezes!"
+              </blockquote>
+            </div>
+
+            <div class="text-[11px] text-slate-600 p-2 bg-slate-50 rounded-lg">
+              <strong>Impacto para o Time:</strong> O feedback de Daucio valida que a Nock superou com folga o estigma técnico e desenvolveu capacidade de tração executiva real. Essa chancela deve ser explorada no material para investidores-anjo.
+            </div>
+          </div>
+        </div>
+
+        <!-- JURADO 2: Bruno -->
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-100 pb-3 mb-4 gap-2">
+            <div class="flex items-center space-x-2">
+              <span class="w-8 h-8 rounded-lg bg-indigo-100 text-indigo-700 font-bold flex items-center justify-center text-xs">J2</span>
+              <div>
+                <h4 class="text-sm font-bold text-slate-900">Bruno</h4>
+                <p class="text-[11px] text-slate-500">Empreendedor de Mercado · Convidado Especial / SEMIC</p>
+              </div>
+            </div>
+            <span class="text-xs font-mono bg-slate-100 text-slate-600 px-2 py-1 rounded self-start sm:self-auto">
+              Timestamp no Vídeo: 01:00:15
+            </span>
+          </div>
+
+          <div class="space-y-3 text-xs leading-relaxed">
+            <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+              <div class="font-bold text-slate-800 mb-1 flex items-center">
+                <span class="w-2 h-2 rounded-full bg-blue-500 mr-1.5"></span>
+                Pergunta 1 — Substituição de Sistemas & White Label:
+              </div>
+              <p class="text-slate-700 italic">
+                "Como vocês imaginam substituir o que as empresas já estão usando de sistemas estabelecidos de CRM e prospecção? Ela é personalizada? A empresa consegue assinar no formato white label?"
+              </p>
+            </div>
+
+            <div class="p-3 bg-blue-50/50 rounded-xl border border-blue-200">
+              <div class="font-bold text-blue-900 mb-1 flex items-center">
+                <span class="w-2 h-2 rounded-full bg-blue-600 mr-1.5"></span>
+                A Sugestão de Ouro — Filtro de Prospecção por Raio Geográfico:
+              </div>
+              <p class="text-slate-700 italic mb-2">
+                "Na nossa empresa a gente tem áreas de atuação específicas. Quando a gente entra num novo estado, a gente quer empresas exatamente daquele raio territorial. Se não existir hoje, incorporem selecionar, por exemplo, no mapa um raio e buscar todos os contatos e empresas daquela temática naquele raio. Aí aumenta o funil, o cara entende na hora como pode escalar numa nova região. Isso seria ouro!"
+              </p>
+              <div class="text-[11px] text-blue-950 bg-white/70 p-2 rounded-lg border border-blue-100">
+                <strong>Insight do Jurado:</strong> Ferramentas americanas (Apollo, ZoomInfo) são péssimas para segmentação geográfica fina no Brasil interiorano. Ter um filtro por raio de quilômetros em mapa é um diferencial matador para médias empresas de serviços, distribuição e indústria regional.
+              </div>
+            </div>
+
+            <div class="p-3 bg-emerald-50 rounded-xl border border-emerald-200">
+              <div class="font-bold text-emerald-900 mb-1">Como a Equipe Respondeu na Réplica:</div>
+              <p class="text-emerald-950">
+                Gabriel explicou que a Nock já opera de forma 100% personalizada: o cliente insere o domínio do site e a IA analisa modelo de negócio e território de atuação. Confirmou que campanhas por cidade ou raio geográfico já estão plenamente suportadas na arquitetura.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- JURADO 3: Liliane -->
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-100 pb-3 mb-4 gap-2">
+            <div class="flex items-center space-x-2">
+              <span class="w-8 h-8 rounded-lg bg-teal-100 text-teal-700 font-bold flex items-center justify-center text-xs">J3</span>
+              <div>
+                <h4 class="text-sm font-bold text-slate-900">Liliane</h4>
+                <p class="text-[11px] text-slate-500">Habitat Senai de Inovação · Sistema FIEP</p>
+              </div>
+            </div>
+            <span class="text-xs font-mono bg-slate-100 text-slate-600 px-2 py-1 rounded self-start sm:self-auto">
+              Timestamp no Vídeo: 01:01:00 e 01:02:10
+            </span>
+          </div>
+
+          <div class="space-y-3 text-xs leading-relaxed">
+            <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+              <div class="font-bold text-slate-800 mb-1 flex items-center">
+                <span class="w-2 h-2 rounded-full bg-teal-500 mr-1.5"></span>
+                Elogio ao Perfil Híbrido (Engenharia + Vendas):
+              </div>
+              <p class="text-slate-600 italic">
+                "E um detalhe, né: você é engenheiro de software. Normalmente o pessoal de TI é bem quietinho... e você é um vendedor, não devia nem estar aqui, devia estar sentado ali com a gente na banca!"
+              </p>
+            </div>
+
+            <div class="p-3 bg-amber-50/50 rounded-xl border border-amber-200">
+              <div class="font-bold text-amber-900 mb-1 flex items-center">
+                <span class="w-2 h-2 rounded-full bg-amber-500 mr-1.5"></span>
+                Dúvidas Críticas — Compliance de Dados (LGPD) & Margem por Créditos:
+              </div>
+              <p class="text-slate-700 italic mb-2">
+                1. <em>"De onde vem a matéria-prima de dados dessas empresas? Como fica a questão da LGPD?"</em><br>
+                2. <em>"Vocês falaram que só cobram se entregarem os dados. Foi feito algum cálculo de mínimo e máximo por plano para empresas grandes que pesquisam muito não gerarem prejuízo para a Nock?"</em>
+              </p>
+            </div>
+
+            <div class="p-3 bg-emerald-50 rounded-xl border border-emerald-200">
+              <div class="font-bold text-emerald-900 mb-1">Como a Equipe Respondeu na Réplica:</div>
+              <p class="text-emerald-950">
+                Gabriel esclareceu com precisão cirúrgica: (1) Utilizam apenas dados públicos consolidados de provedores homologados que respeitam a LGPD (o mesmo benchmark da Clay americana); (2) A IA não é usada para buscar dados (o que seria caro), mas sim para orquestrar os provedores; (3) Os próprios provedores operam no modelo de <em>pay-on-success</em> (se o dado não existe, não cobram a Nock); (4) Contam com subsídio integral de IA via programa de aceleração da Anthropic e mantêm uma margem bruta operacional saudável de aproximadamente 35%.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Action Items for the Team (O que fazer na mentoria) -->
+      <div class="bg-gradient-to-r from-blue-900 via-indigo-900 to-slate-900 text-white p-6 rounded-2xl shadow-md">
+        <h3 class="text-base font-bold text-white mb-2 flex items-center">
+          <svg class="w-5 h-5 mr-2 text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+          Plano de Trabalho Imediato para a Equipe Nock (Fase de Operação)
+        </h3>
+        <p class="text-xs text-blue-200 mb-4 leading-relaxed">
+          Com a chancela entusiasmada da banca, estas são as quatro prioridades para Gabriel, Alisson, Carlos e Pedro levarem às mentorias do SEBRAE/PR e da PUCPR:
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+          <div class="p-3 bg-white/10 rounded-xl border border-white/10">
+            <strong class="text-teal-300 block mb-1">1. Criar a "Feature Bruno" (Filtro por Raio no Mapa)</strong>
+            Implementar no frontend um seletor visual de mapa permitindo que o usuário trace um raio (ex.: 50 km, 100 km) a partir de uma coordenada ou cidade para extrair empresas e tomadores de decisão locais.
+          </div>
+          <div class="p-3 bg-white/10 rounded-xl border border-white/10">
+            <strong class="text-teal-300 block mb-1">2. Expandir Carteira de 7 para 30 Clientes Pagantes</strong>
+            Aproveitar o pico de tráfego orgânico (+100 cadastros/dia) e os cases de sucesso da Salvy (126 vendas) e Hold para rodar cadências outbound automáticas da própria Nock e atingir R$ 10k de MRR nos próximos 3 meses.
+          </div>
+          <div class="p-3 bg-white/10 rounded-xl border border-white/10">
+            <strong class="text-teal-300 block mb-1">3. Formalizar Selo de Conformidade LGPD</strong>
+            Elaborar com a assessoria jurídica da universidade ou do Sebrae uma página pública de transparência detalhando as fontes 100% públicas dos provedores, blindando a venda corporativa para clientes de grande porte (como a Gupy).
+          </div>
+          <div class="p-3 bg-white/10 rounded-xl border border-white/10">
+            <strong class="text-teal-300 block mb-1">4. Preparar Rodada Pré-Seed com o Ecossistema</strong>
+            Aproximar-se formalmente de Daucio (Agência Curitiba) e Gustavo (Sebrae) para mapear redes de investidores-anjo locais e fundos de Venture Capital especializados em B2B SaaS.
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- TAB 1: Pitch & Métricas Comerciais -->
+    <div id="tab-pitch" class="tab-content hidden space-y-6">
+      
+      <!-- Narrative & Hook Card -->
+      <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-lg font-bold text-slate-900 flex items-center">
+            <span class="w-2.5 h-2.5 rounded-full bg-blue-600 mr-2"></span>
+            O Diagnóstico do Motor de Vendas B2B
+          </h3>
+          <span class="text-xs font-mono bg-slate-100 text-slate-600 px-2 py-1 rounded">
+            Timestamp: 00:55:00
+          </span>
+        </div>
+        <blockquote class="p-4 bg-slate-50 border-l-4 border-blue-500 text-slate-700 italic text-sm rounded-r-lg mb-4">
+          "Vendas é o motor de qualquer empresa. Mas segundo a Salesforce, 70% do tempo dos vendedores é gasto em tarefas que não são vender: pesquisas manuais em sites, notícias, CNPJs espalhados e dados incompletos. Segundo a Gartner, 50% dos vendedores se sentem sobrecarregados — e vendedor sobrecarregado tem 45% menos chance de bater meta. A Nock nasceu para devolver o tempo do vendedor: nossa IA compreende o ICP ideal, monitora sinais de mercado e agenda reuniões automaticamente."
+        </blockquote>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm mt-4">
+          <div class="p-3 bg-blue-50/50 rounded-xl border border-blue-100">
+            <div class="font-semibold text-blue-950 mb-1">Diferencial vs. Apollo e Clay</div>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Especialização no mercado e bases de dados brasileiras; integração nativa entre LinkedIn e Gmail; agentes nativos em IA via protocolo MCP e API.
+            </p>
+          </div>
+          <div class="p-3 bg-emerald-50/50 rounded-xl border border-emerald-100">
+            <div class="font-semibold text-emerald-950 mb-1">Modelo Pay-on-Success</div>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Plano de entrada de R$ 299/mês baseado em créditos de dados: se a plataforma não entrega o lead qualificado com contato válido, o cliente não paga.
+            </p>
+          </div>
+          <div class="p-3 bg-indigo-50/50 rounded-xl border border-indigo-100">
+            <div class="font-semibold text-indigo-950 mb-1">Métricas Comprovadas</div>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Case Salvy: 216 oportunidades abertas e 126 vendas fechadas; Case Hold (vendas para shopping): 2 reuniões agendadas no primeiro dia de uso.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Functional Architecture -->
+      <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+        <h3 class="text-lg font-bold text-slate-900 mb-4">Como a Nock Opera na Prática</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="p-4 rounded-xl border border-slate-200 bg-slate-50/50">
+            <div class="text-blue-600 font-bold text-xs uppercase mb-1">Etapa 1</div>
+            <h4 class="font-bold text-slate-900 text-sm mb-1">Enriquecimento de ICP</h4>
+            <p class="text-xs text-slate-600">O cliente insere seu site e o agente entende quem compra, perfil ideal, segmento e região de atuação prioritária.</p>
+          </div>
+          <div class="p-4 rounded-xl border border-slate-200 bg-slate-50/50">
+            <div class="text-blue-600 font-bold text-xs uppercase mb-1">Etapa 2</div>
+            <h4 class="font-bold text-slate-900 text-sm mb-1">Monitor de Sinais</h4>
+            <p class="text-xs text-slate-600">Identifica empresas que estão captando investimento, abrindo vagas chave ou leads que engajaram em posts de concorrentes.</p>
+          </div>
+          <div class="p-4 rounded-xl border border-slate-200 bg-slate-50/50">
+            <div class="text-blue-600 font-bold text-xs uppercase mb-1">Etapa 3</div>
+            <h4 class="font-bold text-slate-900 text-sm mb-1">Cadência Autônoma</h4>
+            <p class="text-xs text-slate-600">Dispara abordagens altamente personalizadas via e-mail e LinkedIn para agendar reuniões direto na agenda do vendedor.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 2: Credenciais do One-Pager PDF -->
+    <div id="tab-onepager" class="tab-content hidden space-y-6">
+      <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-lg font-bold text-slate-900">Evidências Oficiais do One-Pager (Nock.pdf)</h3>
+          <span class="text-xs bg-slate-100 text-slate-600 px-2 py-1 rounded font-mono">Material Entregue à Banca</span>
+        </div>
+        <p class="text-xs text-slate-600 mb-6">
+          O One-Pager da Nock focou na apresentação de sua <strong>estrutura de sócios multidisciplinares de altíssimo nível técnico</strong> da PUCPR, justificando a confiança dos investidores na equipe:
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          
+          <!-- Quadro Societário e Papéis -->
+          <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-3">
+            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Quem Faz a Nock (Quatro Integrantes)</h4>
+            
+            <div class="p-3 bg-white rounded-lg border border-slate-200">
+              <div class="flex justify-between items-center mb-1">
+                <span class="font-bold text-slate-900 text-xs">Gabriel Henrique do Carmo Silva</span>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-blue-100 text-blue-800">CEO</span>
+              </div>
+              <p class="text-[11px] text-slate-600">Engenharia de Software (PUCPR Curitiba). Especialista em estratégias de Go-to-Market (GTM) e Revenue.</p>
+            </div>
+
+            <div class="p-3 bg-white rounded-lg border border-slate-200">
+              <div class="flex justify-between items-center mb-1">
+                <span class="font-bold text-slate-900 text-xs">Alisson Ayres Pereira Martins</span>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-indigo-100 text-indigo-800">CTO</span>
+              </div>
+              <p class="text-[11px] text-slate-600">Ciência da Computação (PUCPR Curitiba). Premiado com honrarias por excelência acadêmica na PUCPR.</p>
+            </div>
+
+            <div class="p-3 bg-white rounded-lg border border-slate-200">
+              <div class="flex justify-between items-center mb-1">
+                <span class="font-bold text-slate-900 text-xs">Carlos Leonardo Garcia Pscheidt</span>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-teal-100 text-teal-800">CDO</span>
+              </div>
+              <p class="text-[11px] text-slate-600">Engenharia de Software (PUCPR Curitiba). Atua no Bradesco, passagem pela Apple Developer Academy e finalista de Startup Weekend.</p>
+            </div>
+
+            <div class="p-3 bg-white rounded-lg border border-slate-200">
+              <div class="flex justify-between items-center mb-1">
+                <span class="font-bold text-slate-900 text-xs">Pedro Henrique Sudario da Silva</span>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-slate-100 text-slate-800">COO</span>
+              </div>
+              <p class="text-[11px] text-slate-600">Sistemas de Informação (PUCPR Curitiba). Multipremiado por excelência acadêmica em tecnologia na universidade.</p>
+            </div>
+          </div>
+
+          <!-- Credenciais e Diferenciais -->
+          <div class="space-y-4">
+            <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+              <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">O que Trazem para o Projeto</h4>
+              <ul class="text-xs text-slate-700 space-y-2">
+                <li><strong>Experiência Aplicada:</strong> Atuação corporativa em bancos (Bradesco), fintechs de grande porte, design de interfaces e programação avançada.</li>
+                <li><strong>Excelência Acadêmica:</strong> Histórico de premiações em olimpíadas e mérito acadêmico em cursos de tecnologia de elite da PUCPR.</li>
+                <li><strong>Vivência Empreendedora:</strong> Prática em maratonas de inovação, ecossistema de startups e liderança comercial de GTM.</li>
+              </ul>
+            </div>
+
+            <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+              <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Meta de 12 Meses (Plano de Escala)</h4>
+              <p class="text-xs text-slate-700 leading-relaxed mb-2">
+                Atingir <strong>R$ 1,1 milhão em receita anual recorrente</strong> com uma base de 300 empresas pagantes no plano base de R$ 299/mês.
+              </p>
+              <div class="text-[11px] text-slate-500 italic">
+                *Mercado TAM Global: US$ 4 bilhões / SAM América Latina: US$ 250 milhões.
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 3: Scorecard PIBEP & Recomendações -->
+    <div id="tab-scorecard" class="tab-content hidden space-y-6">
+      
+      <!-- Scorecard Matrix -->
+      <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+        <h3 class="text-lg font-bold text-slate-900 mb-4">Avaliação Técnica nos 5 Critérios Oficiais do PIBEP</h3>
+        <div class="space-y-4">
+          
+          <div>
+            <div class="flex justify-between items-center text-xs font-semibold mb-1">
+              <span>1. Definição do Problema e Dor de Mercado</span>
+              <span class="text-emerald-700 font-bold">Excepcional (9.5/10)</span>
+            </div>
+            <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
+              <div class="bg-emerald-500 h-full rounded-full" style="width: 95%"></div>
+            </div>
+            <p class="text-[11px] text-slate-500 mt-1">Dados mundiais de Salesforce e Gartner comprovando a sobrecarga de quem vende e o custo do tempo perdido.</p>
+          </div>
+
+          <div>
+            <div class="flex justify-between items-center text-xs font-semibold mb-1">
+              <span>2. Nível de Validação e Estágio do MVP</span>
+              <span class="text-emerald-700 font-bold">Imbatível na Coorte (10.0/10)</span>
+            </div>
+            <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
+              <div class="bg-emerald-500 h-full rounded-full" style="width: 100%"></div>
+            </div>
+            <p class="text-[11px] text-slate-500 mt-1">7 empresas pagantes reais de grande porte (Gupy, Salvy), mais de 100 cadastros/dia e MRR ativo acima de R$ 2k.</p>
+          </div>
+
+          <div>
+            <div class="flex justify-between items-center text-xs font-semibold mb-1">
+              <span>3. Modelo de Negócios e Viabilidade Comercial</span>
+              <span class="text-emerald-700 font-bold">Muito Forte (9.0/10)</span>
+            </div>
+            <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
+              <div class="bg-emerald-500 h-full rounded-full" style="width: 90%"></div>
+            </div>
+            <p class="text-[11px] text-slate-500 mt-1">Modelo de pay-on-success que elimina atrito na venda B2B e assegura margem bruta sólida de aproximadamente 35%.</p>
+          </div>
+
+          <div>
+            <div class="flex justify-between items-center text-xs font-semibold mb-1">
+              <span>4. Gestão Financeira & Alocação do Micro Seed</span>
+              <span class="text-emerald-700 font-bold">Excelente (9.0/10)</span>
+            </div>
+            <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
+              <div class="bg-emerald-500 h-full rounded-full" style="width: 90%"></div>
+            </div>
+            <p class="text-[11px] text-slate-500 mt-1">Alavancagem inteligente do caixa através de subsídios e créditos de IA do programa internacional da Anthropic.</p>
+          </div>
+
+          <div>
+            <div class="flex justify-between items-center text-xs font-semibold mb-1">
+              <span>5. Postura da Equipe e Qualidade do Pitch</span>
+              <span class="text-emerald-700 font-bold">A Melhor do Demoday (10.0/10)</span>
+            </div>
+            <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
+              <div class="bg-emerald-500 h-full rounded-full" style="width: 100%"></div>
+            </div>
+            <p class="text-[11px] text-slate-500 mt-1">Gabriel fez um pitch magistral de vendas, com resposta técnica impecável a todas as provocações de LGPD e custos.</p>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Delta Evolution Card -->
+      <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+        <h3 class="text-lg font-bold text-slate-900 mb-3">Delta de Evolução: Banca Prévia (07/10) vs. Demoday (28/10)</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+          <div class="p-4 bg-rose-50 rounded-xl border border-rose-100">
+            <span class="font-bold text-rose-800 uppercase block mb-1">Apontamentos na Banca Prévia (07/10)</span>
+            <ul class="space-y-1 text-slate-600 list-disc list-inside">
+              <li>Apresentação com oratória monótona, parecendo relatório técnico acadêmico.</li>
+              <li>Jargões excessivos que escondiam a real dor do vendedor sob termos de TI.</li>
+              <li>Apesar de já faturar, falhou em demonstrar a jornada de validação do cliente.</li>
+            </ul>
+          </div>
+          <div class="p-4 bg-emerald-50 rounded-xl border border-emerald-100">
+            <span class="font-bold text-emerald-800 uppercase block mb-1">A Maior Transformação do Programa (28/10)</span>
+            <ul class="space-y-1 text-slate-600 list-disc list-inside">
+              <li>Eliminou 100% da monotonia com energia vibrante de fechamento de negócios.</li>
+              <li>Trouxe números irrefutáveis de geração de vendas para clientes reais.</li>
+              <li>Consolidou a Nock como a startup mais próxima de investimento-anjo da coorte.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Interactive Script -->
+  <script>
+    // Tab Switching Logic
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetId = btn.getAttribute('data-tab');
+
+        // Update Buttons UI
+        tabBtns.forEach(b => {
+          b.classList.remove('border-blue-600', 'text-blue-600');
+          b.classList.add('border-transparent', 'text-slate-500');
+        });
+        btn.classList.add('border-blue-600', 'text-blue-600');
+        btn.classList.remove('border-transparent', 'text-slate-500');
+
+        // Update Contents UI
+        tabContents.forEach(content => {
+          if (content.id === targetId) {
+            content.classList.remove('hidden');
+          } else {
+            content.classList.add('hidden');
+          }
+        });
+      });
+    });
+
+    // Print Button
+    const printBtn = document.getElementById('btnPrint');
+    if (printBtn) {
+      printBtn.addEventListener('click', () => {
+        window.print();
+      });
+    }
+  </script>
+</body>
+</html>
