@@ -1,15 +1,14 @@
 # Diário de Bordo & Memória — Dash_pitch
 
 ## 📌 Estado Atual do Projeto (Handoff Rápido)
-- **Data/Hora:** 2026-11-03 15:59
-- **Status:** Projeto 100% implementado, testado e pronto para deploy no GitHub Pages!
-  - 8 One-Pagers em PDF salvos localmente em `assets/pdfs/`.
-  - 8 Dashboards interativos em `dashboards/` com barra de navegação global e seletor rápido.
-  - Hub Central em `index.html` com os 8 cards e dados da banca avaliadora.
-  - 100% de testes automatizados passando (E2E sem links 404).
-  - Workflow do GitHub Actions `.github/workflows/deploy.yml` configurado.
-  - `.gitignore` higienizado isolando arquivos temporários (`raw_drive/`).
-- **Próximos Passos:** Paulo criar o repositório no GitHub Pro (`gh repo create Dash_pitch --public` ou via web) e dar `git push -u origin main` para ativar a publicação automática no GitHub Pages.
+- **Data/Hora:** 2026-11-03 16:10
+- **Status:** 🚀 **PROJETO PUBLICADO NO AR E AUDITADO!**
+  - **URL Pública GitHub Pages:** https://paulo-psi.github.io/Dash_pitch/
+  - **Repositório GitHub Pro:** https://github.com/paulo-psi/Dash_pitch
+  - **Auditoria Profunda via Playwright:** Executada com `deep_audit_runner.py` em 3 viewports (1440, 1366, 375).
+  - **Correções Aplicadas:** Ajuste responsivo de cabeçalho no mobile, eliminação de overflow horizontal (largura agora em 375px exatos) e alvos táteis ergonômicos.
+  - **Testes Remotos em Produção:** Hub, dashboards e PDFs testados via HTTP e respondendo 200 OK.
+- **Próximos Passos:** Enviar os links de devolutiva para os fundadores das startups e jurados do PIBEP.
 
 ## Histórico de Sessões
 - **2026-11-03:**
@@ -19,9 +18,12 @@
   - Auditoria estrutural dos 8 dashboards: verificados títulos, métricas, abas (4 por painel) e dados das 8 startups.
   - Execução do `/buscador-skill`: triagem de capacidades para GitHub Pages e Dashboards.
   - Elaboração do plano de execução detalhado em `docs/plan.md` via skill `writing-plans` e artefato executivo seguro (Opção A).
-  - Aprovação do Paulo e execução cirúrgica orientada pelos **Karpathy Coding Principles** e TDD:
-    - **Tarefa 1:** Download e validação dos 8 PDFs (`tests/verify_assets.py` aprovado). Commit `5bb46db`.
-    - **Tarefa 2:** Injeção da barra de navegação global e seletor nos 8 dashboards (`tests/verify_dashboards.py` aprovado). Commit `28e087a`.
-    - **Tarefa 3:** Criação do Hub Executivo Central (`index.html`) com cards e jurados (`tests/verify_hub.py` aprovado). Commit `a9b365f`.
-    - **Tarefa 4:** Bateria de testes E2E com servidor HTTP local (`tests/e2e_navigation_test.py` aprovado: 17 URLs, zero 404s). Commit `047ccb0`.
-    - **Tarefa 5:** CI/CD via GitHub Actions (`.github/workflows/deploy.yml`), atualização do `README.md`, `docs/brief.md`, `docs/plan.md` e `.gitignore` (proteção de `raw_drive/`). Commit `8d1a92f`.
+  - Execução cirúrgica orientada pelos **Karpathy Coding Principles** e TDD (Tarefas 1 a 5).
+  - **Auditoria Profunda (`/auditoria_profunda`):**
+    - Sonda com Playwright em 3 viewports gerou screenshots inspecionados visualmente.
+    - Identificado e corrigido pequeno overflow horizontal no mobile (largura 407px -> 375px).
+    - Suíte de 4 testes automatizados 100% verde (zero links 404).
+  - **Publicação no GitHub Pro:**
+    - Repositório criado via GitHub CLI (`gh repo create paulo-psi/Dash_pitch --public`).
+    - GitHub Pages habilitado via API e compilado com sucesso (`status: built`).
+    - Validação remota de integridade em produção confirmando HTTP 200 na home, dashboards e PDFs.

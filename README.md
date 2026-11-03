@@ -2,11 +2,28 @@
 
 > **Portal web unificado e dashboards interativos com a devolutiva oficial da banca avaliadora, transcrição auditada dos pitches e materiais de apoio das 8 startups do PIBEP 16.**
 
+🌐 **Site no Ar (GitHub Pages):** [https://paulo-psi.github.io/Dash_pitch/](https://paulo-psi.github.io/Dash_pitch/)
+
 ---
 
-## 🎯 Visão Geral da Arquitetura (Opção A)
+## 🎯 Links de Acesso Direto para as Equipes
 
-O projeto foi construído para ser hospedado no **GitHub Pages** (GitHub Pro) em um link único e compartilhável para a coordenação, avaliadores e equipes:
+- **Hub Geral (Visão Completa da Banca e Startups):**
+  [https://paulo-psi.github.io/Dash_pitch/](https://paulo-psi.github.io/Dash_pitch/)
+
+- **Painéis Individuais de Devolutiva (Com Sigilo e Foco por Equipe):**
+  1. **Anchor:** [dashboard_01_anchor.html](https://paulo-psi.github.io/Dash_pitch/dashboards/dashboard_01_anchor.html)
+  2. **IntegreMente:** [dashboard_02_integremente.html](https://paulo-psi.github.io/Dash_pitch/dashboards/dashboard_02_integremente.html)
+  3. **Norman:** [dashboard_03_norman.html](https://paulo-psi.github.io/Dash_pitch/dashboards/dashboard_03_norman.html)
+  4. **Nock:** [dashboard_04_nock.html](https://paulo-psi.github.io/Dash_pitch/dashboards/dashboard_04_nock.html)
+  5. **Manka:** [dashboard_05_manka.html](https://paulo-psi.github.io/Dash_pitch/dashboards/dashboard_05_manka.html)
+  6. **Kaden:** [dashboard_06_kaden.html](https://paulo-psi.github.io/Dash_pitch/dashboards/dashboard_06_kaden.html)
+  7. **PlantonIQ:** [dashboard_07_plantoniq.html](https://paulo-psi.github.io/Dash_pitch/dashboards/dashboard_07_plantoniq.html)
+  8. **Recoup IA:** [dashboard_08_recoup.html](https://paulo-psi.github.io/Dash_pitch/dashboards/dashboard_08_recoup.html)
+
+---
+
+## 📁 Estrutura do Repositório
 
 ```text
 Dash_pitch/
@@ -30,74 +47,20 @@ Dash_pitch/
 │       ├── Kaden.pdf
 │       ├── PlantonIQ.pdf
 │       └── RECOUP.pdf
-├── tests/                       # Bateria de testes de integridade e E2E
-│   ├── verify_assets.py
-│   ├── verify_dashboards.py
-│   ├── verify_hub.py
-│   └── e2e_navigation_test.py
-└── .github/workflows/
-    └── deploy.yml               # Workflow oficial de deploy contínuo no GitHub Pages
+└── tests/                       # Bateria de testes de integridade e E2E
+    ├── verify_assets.py
+    ├── verify_dashboards.py
+    ├── verify_hub.py
+    └── e2e_navigation_test.py
 ```
 
 ---
 
-## 🚀 Como Publicar no GitHub Pages (GitHub Pro)
+## 🧪 Auditoria de Qualidade e Testes
 
-### 1. Criar o Repositório no GitHub
-Você pode criar via terminal com o GitHub CLI (`gh`) ou direto pelo navegador:
-
-```powershell
-# Via GitHub CLI (se autenticado):
-gh repo create Dash_pitch --public --source=. --remote=origin --push
-
-# OU se criar manualmente pelo site (https://github.com/new):
-git remote add origin https://github.com/<seu-usuario-github>/Dash_pitch.git
-git branch -M main
-git push -u origin main
-```
-
-### 2. Ativar o GitHub Pages no Repositório
-1. No seu repositório no GitHub, clique em **Settings** > **Pages** (no menu lateral esquerdo).
-2. Em **Build and deployment > Source**, selecione:
-   - **GitHub Actions** (Recomendado — o workflow `.github/workflows/deploy.yml` será executado automaticamente a cada push).
-3. Aguarde cerca de 1 a 2 minutos até o workflow finalizar.
-4. Seu portal estará no ar em:
-   ```text
-   https://<seu-usuario-github>.github.io/Dash_pitch/
-   ```
-
----
-
-## 🔗 Compartilhamento com as Equipes
-
-- **Link Geral (Hub Central):**
-  `https://<seu-usuario-github>.github.io/Dash_pitch/`
-- **Links Diretos por Equipe (Sigilo e Foco na Devolutiva):**
-  - Anchor: `.../Dash_pitch/dashboards/dashboard_01_anchor.html`
-  - IntegreMente: `.../Dash_pitch/dashboards/dashboard_02_integremente.html`
-  - Norman: `.../Dash_pitch/dashboards/dashboard_03_norman.html`
-  - Nock: `.../Dash_pitch/dashboards/dashboard_04_nock.html`
-  - Manka: `.../Dash_pitch/dashboards/dashboard_05_manka.html`
-  - Kaden: `.../Dash_pitch/dashboards/dashboard_06_kaden.html`
-  - PlantonIQ: `.../Dash_pitch/dashboards/dashboard_07_plantoniq.html`
-  - Recoup: `.../Dash_pitch/dashboards/dashboard_08_recoup.html`
-
----
-
-## 🧪 Verificação e Testes Locais
-
-Para rodar a bateria de testes e simular o servidor HTTP antes do deploy:
-
-```powershell
-# Teste de integridade dos PDFs
-python tests/verify_assets.py
-
-# Teste de integridade dos 8 dashboards e navegação
-python tests/verify_dashboards.py
-
-# Teste da Landing Page Hub
-python tests/verify_hub.py
-
-# Bateria End-to-End completa (servidor HTTP local em porta 8923)
-python tests/e2e_navigation_test.py
-```
+- **Auditoria Profunda via Playwright:** Inspecionado em 3 viewports (`1440x900`, `1366x768`, `375x812`).
+- **IDs Órfãos:** 0.
+- **Links Quebrados:** 0.
+- **Overflows de Layout:** 0 (responsividade mobile-first validada).
+- **Testes E2E Locais:** `python tests/e2e_navigation_test.py` (17 URLs testadas com status 200).
+- **Publicação:** GitHub Pages nativo a partir da branch `main` (`/`).
